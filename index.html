@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<!-- Adapted from Nerfies (CC BY-SA 4.0). See THIRD_PARTY.md. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CardioFAD: Focus, Align, and Diffuse. Time-series-aware keyframe diffusion for cardiac dynamic synthesis from sparse observations. NeurIPS 2026.">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="CardioFAD | NeurIPS 2026">
+  <meta property="og:description" content="From a single cardiac observation to a dynamic sequence with motion-salient keyframes and time-series guidance.">
+  <title>CardioFAD | NeurIPS 2026</title>
+  <link rel="icon" href="static/images/favicon.svg?v=20261009-red-purple-blue" type="image/svg+xml">
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="static/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css?v=20261009-corner-to-top">
+  <link rel="stylesheet" href="static/css/quantitative-results.css?v=20261009-matched-controls">
+  <script src="static/js/fontawesome.all.min.js" defer></script>
+  <script src="static/js/config.js?v=20261007" defer></script>
+  <script src="static/js/bulma-carousel.min.js" defer></script>
+  <script src="static/js/index.js?v=20261009-corner-to-top" defer></script>
+  <script src="static/js/quantitative-results.js?v=20261009" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a class="wordmark" href="#top" aria-label="CardioFAD home">CardioFAD</a>
+      <div class="nav-links">
+        <a href="#abstract">Abstract</a><a href="#insight">Key insight</a><a href="#method">Method</a><a href="#results">Generation</a><a href="#videos">Videos</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <section class="hero publication-header" id="top" aria-labelledby="paper-title">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <h1 class="publication-title" id="paper-title">
+                <span class="project-name">CardioFAD</span>
+                <span class="paper-title">Focus, Align, and Diffuse:<br class="desktop-break"> Time-Series-Aware Keyframe Diffusion<br class="desktop-break"> for Cardiac Dynamic Synthesis from Sparse Observations</span>
+              </h1>
+              <div class="publication-metadata">
+                <div class="is-size-5 publication-authors">
+                  <span class="author-block"><a href="https://scholar.google.com/citations?user=w6XeRtAAAAAJ" target="_blank" rel="noopener noreferrer">Junkai Liu</a><sup>1</sup>,</span>
+                  <span class="author-block"><a href="https://scholar.google.com/citations?user=FMQxkjQAAAAJ" target="_blank" rel="noopener noreferrer">Haofan Wu</a><sup>1</sup>,</span>
+                  <span class="author-block"><a href="https://scholar.google.com/citations?user=K-_DAdgAAAAJ" target="_blank" rel="noopener noreferrer">Nay Aung</a><sup>2</sup>,</span>
+                  <span class="author-block"><a href="https://profiles.hopkinsmedicine.org/provider/joao-lima/2706109" target="_blank" rel="noopener noreferrer">Joao A. C. Lima</a><sup>3</sup>,</span>
+                  <span class="author-block"><a href="https://scholar.google.com/citations?user=0_C_hmYAAAAJ" target="_blank" rel="noopener noreferrer">Steffen E. Petersen</a><sup>2</sup>,</span>
+                  <span class="author-block"><a href="https://scholar.google.com/citations?hl=en&amp;user=gpbEdHEAAAAJ" target="_blank" rel="noopener noreferrer">Le Zhang</a><sup>1</sup></span>
+                </div>
+                <div class="is-size-5 publication-authors publication-affiliations">
+                  <span class="author-block"><sup>1</sup>University of Birmingham,</span>
+                  <span class="author-block"><sup>2</sup>Queen Mary University of London,</span>
+                  <span class="author-block"><sup>3</sup>Johns Hopkins University</span>
+                </div>
+                <p class="publication-venue"><strong>NeurIPS 2026</strong></p>
+                <div class="column has-text-centered">
+                    <div class="publication-links">
+                      <span class="link-block">
+                        <a class="external-link button is-normal is-rounded is-dark resource-link unavailable" id="paper-link" role="link" aria-disabled="true" tabindex="-1" title="Paper link to be added">
+                          <span class="icon"><i class="fas fa-file-pdf" aria-hidden="true"></i></span>
+                          <span>Paper</span>
+                        </a>
+                      </span>
+                      <span class="link-block">
+                        <a class="external-link button is-normal is-rounded is-dark resource-link unavailable" id="arxiv-link" role="link" aria-disabled="true" tabindex="-1" title="arXiv link to be added">
+                          <span class="icon"><i class="ai ai-arxiv" aria-hidden="true"></i></span>
+                          <span>arXiv</span>
+                        </a>
+                      </span>
+                      <span class="link-block">
+                        <a class="external-link button is-normal is-rounded is-dark resource-link" href="https://github.com/JK-Liu7/CardioFAD" target="_blank" rel="noopener noreferrer">
+                          <span class="icon"><i class="fab fa-github" aria-hidden="true"></i></span>
+                          <span>Code</span>
+                        </a>
+                      </span>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero teaser" aria-label="Overview">
+      <div class="container page-width">
+        <div class="tldr" id="tldr">
+          <h2 class="tldr-title">TL;DR</h2>
+          <p class="tldr-copy"><strong>CardioFAD</strong> turns a single cardiac observation into a dynamic sequence with <strong>motion-salient keyframes</strong> and <strong>time-series guidance</strong>.</p>
+        </div>
+        <figure class="paper-figure" id="figure-teaser">
+          <div class="media-slot teaser-slot" data-image="teaser" data-alt="CardioFAD teaser: sparse observations, recoverable and alignable keyframe anchors, and cardiac dynamic synthesis.">
+            <div class="media-placeholder"><span class="placeholder-index">FIGURE 1</span><span class="placeholder-title">Teaser</span></div>
+          </div>
+          <figcaption class="caption-detail"><strong>(a) Challenge:</strong> Sparse observations create temporal ambiguity, while ECG and visual signals may be misaligned. <strong>(b) Solution:</strong> Discover keyframe anchors that make motion recoverable and alignable. <strong>(c) Principle-to-Performance:</strong> Keyframes satisfying both principles improve synthesis quality.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section abstract-section" id="abstract" aria-labelledby="abstract-title">
+      <div class="container text-width">
+        <h2 class="title is-3 section-title" id="abstract-title">Abstract</h2>
+        <div class="content abstract-copy">
+          <p>Dense cardiac dynamics are essential for assessing cardiac function, yet in practice clinicians often observe only extremely sparse measurements. However, recovering full dynamics from such sparsity is a highly ill-posed problem due to the lack of temporal cues. While auxiliary time-series signals like ECG provide physiological guidance, effectively exploiting them is challenging due to the cross-modal representation gap and phase misalignment. In this work, we present <strong>CardioFAD</strong>, a <strong>Focus--Align--Diffuse</strong> paradigm that reformulates sparse cardiac dynamic synthesis as a recoverability--alignability anchor discovery problem. Our core insight is that resolving extreme temporal ambiguity requires a compact set of anchor states that are both sufficient to recover the visual trajectory and reliable for ECG--visual alignment. We therefore learn motion-salient keyframes under two complementary principles: trajectory sufficiency, which preserves trajectory-critical intra-modal motion content, and anchor alignment, which promotes consistent inter-modal correspondence at these anchors. We implement the <strong>Focus</strong> and <strong>Align</strong> modules optimized by the two aspects. <strong>Diffuse</strong> then performs two-stage generation by first synthesizing keyframes and subsequently interpolating the remaining frames. Extensive experiments on cardiac MRI and echocardiography videos demonstrate superior visual quality, temporal coherence, and improved functional consistency under the extreme one-shot regime.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section insight-section" id="insight" aria-labelledby="insight-title">
+      <div class="container page-width">
+        <h2 class="title is-3 section-title" id="insight-title">Key insight</h2>
+        <p class="section-intro">The right keyframes make motion both <strong class="recoverable-text">recoverable</strong> and <strong class="alignable-text">alignable</strong>.</p>
+        <div class="principles">
+          <article class="principle principle-recoverable"><h3>Trajectory sufficiency</h3><p>Preserve the motion needed to <strong>reconstruct the full sequence</strong>.</p></article>
+          <article class="principle principle-alignable"><h3>Anchor alignment</h3><p>Connect visual states and time-series cues at <strong>informative phases</strong>.</p></article>
+        </div>
+        <p class="insight-summary">A compact set of anchors. A coherent cardiac trajectory.</p>
+      </div>
+    </section>
+
+    <section class="section" id="method" aria-labelledby="method-title">
+      <div class="container page-width">
+        <h2 class="title is-3 section-title" id="method-title">Method</h2>
+        <p class="section-intro">Focus on the key moments. Align the cues. Diffuse the dynamics.</p>
+        <div class="method-overview" aria-label="Explore the three method components">
+          <a class="method-card method-focus-card" href="#method-focus" aria-labelledby="focus-card-title">
+            <h3 id="focus-card-title">Focus</h3>
+            <p>Discover motion-salient keyframes that preserve the full cardiac trajectory.</p>
+          </a>
+          <a class="method-card method-align-card" href="#method-align" aria-labelledby="align-card-title">
+            <h3 id="align-card-title">Align</h3>
+            <p>Connect visual states and time-series cues through informative cardiac anchors.</p>
+          </a>
+          <a class="method-card method-diffuse-card" href="#method-diffuse" aria-labelledby="diffuse-card-title">
+            <h3 id="diffuse-card-title">Diffuse</h3>
+            <p>Generate the keyframes first, then complete the cardiac sequence.</p>
+          </a>
+        </div>
+        <figure class="paper-figure">
+          <div class="media-slot framework-slot" data-image="framework" data-alt="CardioFAD framework with Focus, Align, and two-stage Diffuse modules."><div class="media-placeholder"><span class="placeholder-index">FIGURE 2</span><span class="placeholder-title">Framework</span></div></div>
+          <figcaption class="caption-detail"><strong>Overview of CardioFAD.</strong> <strong>Focus:</strong> A tokenizer learns keyframes that retain enough information to reconstruct cardiac dynamics. <strong>Align:</strong> Keyframe-weighted alignment synchronizes visual and ECG latents, establishing cross-modal anchors. <strong>Diffuse:</strong> A video diffusion transformer first generates keyframes, then interpolates the remaining frames.</figcaption>
+        </figure>
+        <div class="method-details">
+          <article class="method-detail" id="method-focus" aria-labelledby="focus-title">
+            <h3 id="focus-title">Focus: learn motion-salient anchors</h3>
+            <p>Focus learns motion-salient keyframes from the time-series signal. Reconstructing the full trajectory from these anchors encourages them to retain essential cardiac dynamics.</p>
+          </article>
+          <article class="method-detail" id="method-align" aria-labelledby="align-title">
+            <h3 id="align-title">Align: connect the modalities</h3>
+            <p>Align matches visual and time-series features by cardiac phase. Its bidirectional contrastive objective emphasizes nearby phases and gives informative keyframes greater weight.</p>
+          </article>
+          <article class="method-detail" id="method-diffuse" aria-labelledby="diffuse-title">
+            <h3 id="diffuse-title">Diffuse: complete the dynamics</h3>
+            <p>Diffuse first generates keyframes from the sparse observation and aligned time-series guidance, then fills in the remaining frames. Both stages share one masked video diffusion model.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section results-section" id="results" aria-labelledby="results-title">
+      <div class="container page-width">
+        <h2 class="title is-3 section-title" id="results-title">Generation</h2>
+        <p class="section-intro">One volume or slice for CMR. One frame for ECHO.</p>
+        <div class="result-block quantitative-results" id="quantitative-results">
+          <div class="subsection-heading results-heading"><h3 id="quantitative-title">Quantitative Results</h3></div>
+          <div class="results-controls" hidden>
+            <div class="results-tabs results-modality-tabs" role="tablist" aria-label="Imaging modality" data-results-modality-tabs>
+              <button type="button" role="tab" id="results-tab-cmr" aria-controls="results-cmr" aria-selected="true" data-modality="cmr">CMR</button>
+              <button type="button" role="tab" id="results-tab-echo" aria-controls="results-echo" aria-selected="false" tabindex="-1" data-modality="echo">ECHO</button>
+            </div>
+            <div class="results-tabs results-view-tabs" role="tablist" aria-label="CMR synthesis task" data-results-view-tabs="cmr">
+              <button type="button" role="tab" id="results-tab-volume" aria-controls="results-volume" aria-selected="true">Volume2Seq</button>
+              <button type="button" role="tab" id="results-tab-slice" aria-controls="results-slice" aria-selected="false" tabindex="-1">Slice2Seq</button>
+            </div>
+            <div class="results-tabs results-view-tabs" role="tablist" aria-label="ECHO dataset" data-results-view-tabs="echo" hidden>
+              <button type="button" role="tab" id="results-tab-dynamic" aria-controls="results-dynamic" aria-selected="true">EchoNet-Dynamic</button>
+              <button type="button" role="tab" id="results-tab-a4c" aria-controls="results-a4c" aria-selected="false" tabindex="-1">EchoNet-Pediatric (A4C)</button>
+              <button type="button" role="tab" id="results-tab-psax" aria-controls="results-psax" aria-selected="false" tabindex="-1">EchoNet-Pediatric (PSAX)</button>
+            </div>
+          </div>
+
+          <!-- Values transcribed from the original table-1.png and table-2.png.
+               Keep all five tables readable when JavaScript is unavailable. -->
+          <div id="results-cmr" class="results-modality-panel" role="tabpanel" aria-labelledby="results-tab-cmr">
+            <div id="results-volume" class="results-view" role="tabpanel" aria-labelledby="results-tab-volume">
+              <p class="results-context" id="results-volume-context"><strong>UK Biobank · Volume2Seq</strong><span>3D+t CMR synthesis</span></p>
+              <div class="results-table-scroll" role="region" aria-labelledby="results-volume-context" tabindex="0">
+                <table class="quantitative-table">
+                  <caption class="sr-only">CMR Volume2Seq synthesis on UK Biobank. Higher PSNR and SSIM, and lower LPIPS, FID and FVD are better.</caption>
+                  <thead><tr><th scope="col">Method</th><th scope="col">PSNR ↑</th><th scope="col">SSIM ↑</th><th scope="col">LPIPS ↓</th><th scope="col">FID ↓</th><th scope="col">FVD ↓</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">VideoComposer</th><td>28.15</td><td>0.843</td><td>0.107</td><td>128.76</td><td>1762.34</td></tr>
+                    <tr><th scope="row">MotionCtrl</th><td>28.46</td><td>0.825</td><td>0.104</td><td>119.52</td><td>1334.87</td></tr>
+                    <tr><th scope="row">Tora</th><td>29.74</td><td>0.854</td><td>0.092</td><td>97.30</td><td>1025.57</td></tr>
+                    <tr><th scope="row">MotionPro</th><td>27.88</td><td>0.817</td><td>0.116</td><td>145.39</td><td>1887.96</td></tr>
+                  </tbody>
+                  <tbody class="results-ours-group">
+                    <tr class="results-one-stage"><th scope="row">CardioFAD <span>(One-stage)</span></th><td>30.51</td><td>0.861</td><td>0.082</td><td>82.48</td><td>1007.63</td></tr>
+                    <tr class="results-ours"><th scope="row">CardioFAD <span>(Ours)</span></th><td><strong>32.41</strong></td><td><strong>0.885</strong></td><td><strong>0.064</strong></td><td><strong>59.96</strong></td><td><strong>736.01</strong></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div id="results-slice" class="results-view" role="tabpanel" aria-labelledby="results-tab-slice">
+              <p class="results-context" id="results-slice-context"><strong>UK Biobank · Slice2Seq</strong><span>3D+t CMR synthesis</span></p>
+              <div class="results-table-scroll" role="region" aria-labelledby="results-slice-context" tabindex="0">
+                <table class="quantitative-table">
+                  <caption class="sr-only">CMR Slice2Seq synthesis on UK Biobank. Higher PSNR and SSIM, and lower LPIPS, FID and FVD are better.</caption>
+                  <thead><tr><th scope="col">Method</th><th scope="col">PSNR ↑</th><th scope="col">SSIM ↑</th><th scope="col">LPIPS ↓</th><th scope="col">FID ↓</th><th scope="col">FVD ↓</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">VideoComposer</th><td>21.86</td><td>0.497</td><td>0.289</td><td>314.85</td><td>4574.61</td></tr>
+                    <tr><th scope="row">MotionCtrl</th><td>21.25</td><td>0.488</td><td>0.294</td><td>365.97</td><td>4914.27</td></tr>
+                    <tr><th scope="row">Tora</th><td>23.10</td><td>0.539</td><td>0.251</td><td>267.92</td><td>3109.75</td></tr>
+                    <tr><th scope="row">MotionPro</th><td>22.09</td><td>0.501</td><td>0.269</td><td>292.17</td><td>3756.61</td></tr>
+                  </tbody>
+                  <tbody class="results-ours-group">
+                    <tr class="results-one-stage"><th scope="row">CardioFAD <span>(One-stage)</span></th><td>23.75</td><td>0.559</td><td>0.231</td><td>211.49</td><td>2785.30</td></tr>
+                    <tr class="results-ours"><th scope="row">CardioFAD <span>(Ours)</span></th><td><strong>25.60</strong></td><td><strong>0.587</strong></td><td><strong>0.198</strong></td><td><strong>163.12</strong></td><td><strong>1847.73</strong></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div id="results-echo" class="results-modality-panel" role="tabpanel" aria-labelledby="results-tab-echo">
+            <div id="results-dynamic" class="results-view" role="tabpanel" aria-labelledby="results-tab-dynamic">
+              <p class="results-context" id="results-dynamic-context"><strong>EchoNet-Dynamic</strong><span>2D+t ECHO synthesis</span></p>
+              <div class="results-table-scroll" role="region" aria-labelledby="results-dynamic-context" tabindex="0">
+                <table class="quantitative-table">
+                  <caption class="sr-only">ECHO synthesis on EchoNet-Dynamic. Higher PSNR and SSIM, and lower LPIPS, FID and FVD are better.</caption>
+                  <thead><tr><th scope="col">Method</th><th scope="col">PSNR ↑</th><th scope="col">SSIM ↑</th><th scope="col">LPIPS ↓</th><th scope="col">FID ↓</th><th scope="col">FVD ↓</th></tr></thead>
+                  <tbody>
+                    <tr class="results-category"><th colspan="6" scope="rowgroup">General Video Generation</th></tr>
+                    <tr><th scope="row">VideoComposer</th><td>22.78</td><td>0.539</td><td>0.109</td><td>48.25</td><td>284.16</td></tr>
+                    <tr><th scope="row">Tora</th><td>23.90</td><td>0.548</td><td>0.102</td><td>52.06</td><td>241.96</td></tr>
+                  </tbody>
+                  <tbody>
+                    <tr class="results-category"><th colspan="6" scope="rowgroup">ECHO Video Generation</th></tr>
+                    <tr><th scope="row">HeartBeat</th><td>21.24</td><td>0.527</td><td>0.122</td><td>58.97</td><td>376.51</td></tr>
+                    <tr><th scope="row">EchoNet-Synthetic</th><td>23.58</td><td>0.540</td><td>0.107</td><td>49.87</td><td>267.35</td></tr>
+                    <tr><th scope="row">ECHOPulse</th><td>25.63</td><td>0.568</td><td>0.081</td><td>37.05</td><td>196.28</td></tr>
+                  </tbody>
+                  <tbody class="results-ours-group">
+                    <tr class="results-one-stage"><th scope="row">CardioFAD <span>(One-stage)</span></th><td>25.14</td><td>0.556</td><td>0.089</td><td>46.82</td><td>232.17</td></tr>
+                    <tr class="results-ours"><th scope="row">CardioFAD <span>(Ours)</span></th><td><strong>27.73</strong></td><td><strong>0.596</strong></td><td><strong>0.067</strong></td><td><strong>26.92</strong></td><td><strong>137.70</strong></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div id="results-a4c" class="results-view" role="tabpanel" aria-labelledby="results-tab-a4c">
+              <p class="results-context" id="results-a4c-context"><strong>EchoNet-Pediatric (A4C)</strong><span>2D+t ECHO synthesis</span></p>
+              <div class="results-table-scroll" role="region" aria-labelledby="results-a4c-context" tabindex="0">
+                <table class="quantitative-table">
+                  <caption class="sr-only">ECHO synthesis on EchoNet-Pediatric (A4C). Higher PSNR and SSIM, and lower LPIPS, FID and FVD are better.</caption>
+                  <thead><tr><th scope="col">Method</th><th scope="col">PSNR ↑</th><th scope="col">SSIM ↑</th><th scope="col">LPIPS ↓</th><th scope="col">FID ↓</th><th scope="col">FVD ↓</th></tr></thead>
+                  <tbody>
+                    <tr class="results-category"><th colspan="6" scope="rowgroup">General Video Generation</th></tr>
+                    <tr><th scope="row">VideoComposer</th><td>27.49</td><td>0.633</td><td>0.089</td><td>34.74</td><td>346.31</td></tr>
+                    <tr><th scope="row">Tora</th><td>27.86</td><td>0.638</td><td>0.082</td><td>28.94</td><td>361.09</td></tr>
+                  </tbody>
+                  <tbody>
+                    <tr class="results-category"><th colspan="6" scope="rowgroup">ECHO Video Generation</th></tr>
+                    <tr><th scope="row">HeartBeat</th><td>26.71</td><td>0.629</td><td>0.088</td><td>37.56</td><td>415.71</td></tr>
+                    <!-- The supplied table-2.png reports 0.642 here; preserve the image value. -->
+                    <tr><th scope="row">EchoNet-Synthetic</th><td>26.08</td><td>0.624</td><td>0.092</td><td>39.93</td><td>408.12</td></tr>
+                    <tr><th scope="row">ECHOPulse</th><td>28.14</td><td>0.641</td><td>0.080</td><td>29.63</td><td>357.74</td></tr>
+                  </tbody>
+                  <tbody class="results-ours-group">
+                    <tr class="results-one-stage"><th scope="row">CardioFAD <span>(One-stage)</span></th><td>28.32</td><td>0.643</td><td>0.078</td><td>29.23</td><td>339.15</td></tr>
+                    <tr class="results-ours"><th scope="row">CardioFAD <span>(Ours)</span></th><td><strong>29.48</strong></td><td><strong>0.657</strong></td><td><strong>0.073</strong></td><td><strong>23.21</strong></td><td><strong>286.29</strong></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div id="results-psax" class="results-view" role="tabpanel" aria-labelledby="results-tab-psax">
+              <p class="results-context" id="results-psax-context"><strong>EchoNet-Pediatric (PSAX)</strong><span>2D+t ECHO synthesis</span></p>
+              <div class="results-table-scroll" role="region" aria-labelledby="results-psax-context" tabindex="0">
+                <table class="quantitative-table">
+                  <caption class="sr-only">ECHO synthesis on EchoNet-Pediatric (PSAX). Higher PSNR and SSIM, and lower LPIPS, FID and FVD are better.</caption>
+                  <thead><tr><th scope="col">Method</th><th scope="col">PSNR ↑</th><th scope="col">SSIM ↑</th><th scope="col">LPIPS ↓</th><th scope="col">FID ↓</th><th scope="col">FVD ↓</th></tr></thead>
+                  <tbody>
+                    <tr class="results-category"><th colspan="6" scope="rowgroup">General Video Generation</th></tr>
+                    <tr><th scope="row">VideoComposer</th><td>27.26</td><td>0.621</td><td>0.084</td><td>42.19</td><td>389.07</td></tr>
+                    <tr><th scope="row">Tora</th><td>28.37</td><td>0.638</td><td>0.081</td><td>35.52</td><td>347.21</td></tr>
+                  </tbody>
+                  <tbody>
+                    <tr class="results-category"><th colspan="6" scope="rowgroup">ECHO Video Generation</th></tr>
+                    <tr><th scope="row">HeartBeat</th><td>27.65</td><td>0.630</td><td>0.079</td><td>45.02</td><td>407.26</td></tr>
+                    <tr><th scope="row">EchoNet-Synthetic</th><td>26.23</td><td>0.612</td><td>0.090</td><td>48.82</td><td>432.50</td></tr>
+                    <tr><th scope="row">ECHOPulse</th><td>28.50</td><td>0.639</td><td>0.080</td><td>37.57</td><td>367.46</td></tr>
+                  </tbody>
+                  <tbody class="results-ours-group">
+                    <tr class="results-one-stage"><th scope="row">CardioFAD <span>(One-stage)</span></th><td>28.77</td><td>0.640</td><td>0.079</td><td>39.17</td><td>381.06</td></tr>
+                    <tr class="results-ours"><th scope="row">CardioFAD <span>(Ours)</span></th><td><strong>29.59</strong></td><td><strong>0.645</strong></td><td><strong>0.071</strong></td><td><strong>27.12</strong></td><td><strong>293.86</strong></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <p class="results-scroll-hint">Scroll horizontally to view all metrics <span aria-hidden="true">↔</span></p>
+        </div>
+        <div class="result-block qualitative-results" id="qualitative-results">
+          <div class="subsection-heading results-heading"><h3 id="qualitative-title">Qualitative Results</h3></div>
+          <div id="qualitative-carousel" class="carousel results-carousel qualitative-carousel" role="region" aria-roledescription="carousel" aria-labelledby="qualitative-title">
+            <div class="item">
+              <figure class="paper-figure">
+              <div class="media-slot comparison-slot" data-image="fig3" data-alt="Figure 3: CMR and ECHO comparisons near the observation, at learned keyframes, between keyframes, and at hard non-keyframes."><div class="media-placeholder"><span class="placeholder-index">FIGURE 3</span><span class="placeholder-title">Visual comparison</span></div></div>
+              <figcaption>CMR and ECHO comparisons near the observation, at keyframes, and at challenging non-keyframe positions.</figcaption>
+              </figure>
+            </div>
+            <div class="item">
+              <figure class="paper-figure"><div class="media-slot ablation-slot" data-image="fig11" data-alt="Figure 11: CMR visual ablation comparing CardioFAD with uniform keyframes and one-stage generation."><div class="media-placeholder"><span class="placeholder-index">FIGURE 11</span><span class="placeholder-title">CMR ablation</span></div></div><figcaption>CMR: learned anchors and two-stage generation.</figcaption></figure>
+            </div>
+            <div class="item">
+              <figure class="paper-figure"><div class="media-slot ablation-slot" data-image="fig12" data-alt="Figure 12: ECHO visual ablation comparing CardioFAD with uniform keyframes and one-stage generation."><div class="media-placeholder"><span class="placeholder-index">FIGURE 12</span><span class="placeholder-title">ECHO ablation</span></div></div><figcaption>ECHO: learned anchors and two-stage generation.</figcaption></figure>
+            </div>
+          </div>
+          <p class="sr-only" id="qualitative-status" role="status" aria-live="polite" aria-atomic="true"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section video-section" id="videos" aria-labelledby="videos-title">
+      <div class="container page-width">
+        <h2 class="title is-3 section-title" id="videos-title">Video Demonstration of Generation Results</h2>
+        <div class="video-group">
+          <div class="subsection-heading"><h3>CMR Video Generation Examples</h3></div>
+          <div class="video-grid" aria-label="CMR examples">
+            <article class="video-example" aria-label="CMR example 01">
+              <div class="video-pair">
+                <div class="video-panel">
+                  <p class="video-label">Original (GT)</p>
+                  <div class="media-slot video-slot" data-video="cmr" data-example="0" data-side="original" data-alt="CMR example 01: Original (GT)">
+                    <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
+                  </div>
+                </div>
+                <div class="video-panel">
+                  <p class="video-label">Synthetic</p>
+                  <div class="media-slot video-slot" data-video="cmr" data-example="0" data-side="synthetic" data-alt="CMR example 01: Synthetic">
+                    <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="video-example" aria-label="CMR example 02">
+              <div class="video-pair">
+                <div class="video-panel">
+                  <p class="video-label">Original (GT)</p>
+                  <div class="media-slot video-slot" data-video="cmr" data-example="1" data-side="original" data-alt="CMR example 02: Original (GT)">
+                    <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
+                  </div>
+                </div>
+                <div class="video-panel">
+                  <p class="video-label">Synthetic</p>
+                  <div class="media-slot video-slot" data-video="cmr" data-example="1" data-side="synthetic" data-alt="CMR example 02: Synthetic">
+                    <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="video-example" aria-label="CMR example 03">
+              <div class="video-pair">
+                <div class="video-panel">
+                  <p class="video-label">Original (GT)</p>
+                  <div class="media-slot video-slot" data-video="cmr" data-example="2" data-side="original" data-alt="CMR example 03: Original (GT)">
+                    <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
+                  </div>
+                </div>
+                <div class="video-panel">
+                  <p class="video-label">Synthetic</p>
+                  <div class="media-slot video-slot" data-video="cmr" data-example="2" data-side="synthetic" data-alt="CMR example 03: Synthetic">
+                    <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="video-example" aria-label="CMR example 04">
+              <div class="video-pair">
+                <div class="video-panel">
+                  <p class="video-label">Original (GT)</p>
+                  <div class="media-slot video-slot" data-video="cmr" data-example="3" data-side="original" data-alt="CMR example 04: Original (GT)">
+                    <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
+                  </div>
+                </div>
+                <div class="video-panel">
+                  <p class="video-label">Synthetic</p>
+                  <div class="media-slot video-slot" data-video="cmr" data-example="3" data-side="synthetic" data-alt="CMR example 04: Synthetic">
+                    <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="video-example" aria-label="CMR example 05">
+              <div class="video-pair">
+                <div class="video-panel">
+                  <p class="video-label">Original (GT)</p>
+                  <div class="media-slot video-slot" data-video="cmr" data-example="4" data-side="original" data-alt="CMR example 05: Original (GT)">
+                    <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
+                  </div>
+                </div>
+                <div class="video-panel">
+                  <p class="video-label">Synthetic</p>
+                  <div class="media-slot video-slot" data-video="cmr" data-example="4" data-side="synthetic" data-alt="CMR example 05: Synthetic">
+                    <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="video-example" aria-label="CMR example 06">
+              <div class="video-pair">
+                <div class="video-panel">
+                  <p class="video-label">Original (GT)</p>
+                  <div class="media-slot video-slot" data-video="cmr" data-example="5" data-side="original" data-alt="CMR example 06: Original (GT)">
+                    <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
+                  </div>
+                </div>
+                <div class="video-panel">
+                  <p class="video-label">Synthetic</p>
+                  <div class="media-slot video-slot" data-video="cmr" data-example="5" data-side="synthetic" data-alt="CMR example 06: Synthetic">
+                    <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="video-group">
+          <div class="subsection-heading"><h3>ECHO Video Generation Examples</h3></div>
+          <div class="video-grid" aria-label="ECHO examples">
+            <article class="video-example" aria-label="ECHO example 01">
+              <div class="video-pair">
+                <div class="video-panel">
+                  <p class="video-label">Original (GT)</p>
+                  <div class="media-slot video-slot" data-video="echo" data-example="0" data-side="original" data-alt="ECHO example 01: Original (GT)">
+                    <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
+                  </div>
+                </div>
+                <div class="video-panel">
+                  <p class="video-label">Synthetic</p>
+                  <div class="media-slot video-slot" data-video="echo" data-example="0" data-side="synthetic" data-alt="ECHO example 01: Synthetic">
+                    <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="video-example" aria-label="ECHO example 02">
+              <div class="video-pair">
+                <div class="video-panel">
+                  <p class="video-label">Original (GT)</p>
+                  <div class="media-slot video-slot" data-video="echo" data-example="1" data-side="original" data-alt="ECHO example 02: Original (GT)">
+                    <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
+                  </div>
+                </div>
+                <div class="video-panel">
+                  <p class="video-label">Synthetic</p>
+                  <div class="media-slot video-slot" data-video="echo" data-example="1" data-side="synthetic" data-alt="ECHO example 02: Synthetic">
+                    <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="video-example" aria-label="ECHO example 03">
+              <div class="video-pair">
+                <div class="video-panel">
+                  <p class="video-label">Original (GT)</p>
+                  <div class="media-slot video-slot" data-video="echo" data-example="2" data-side="original" data-alt="ECHO example 03: Original (GT)">
+                    <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
+                  </div>
+                </div>
+                <div class="video-panel">
+                  <p class="video-label">Synthetic</p>
+                  <div class="media-slot video-slot" data-video="echo" data-example="2" data-side="synthetic" data-alt="ECHO example 03: Synthetic">
+                    <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="video-example" aria-label="ECHO example 04">
+              <div class="video-pair">
+                <div class="video-panel">
+                  <p class="video-label">Original (GT)</p>
+                  <div class="media-slot video-slot" data-video="echo" data-example="3" data-side="original" data-alt="ECHO example 04: Original (GT)">
+                    <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
+                  </div>
+                </div>
+                <div class="video-panel">
+                  <p class="video-label">Synthetic</p>
+                  <div class="media-slot video-slot" data-video="echo" data-example="3" data-side="synthetic" data-alt="ECHO example 04: Synthetic">
+                    <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="video-example" aria-label="ECHO example 05">
+              <div class="video-pair">
+                <div class="video-panel">
+                  <p class="video-label">Original (GT)</p>
+                  <div class="media-slot video-slot" data-video="echo" data-example="4" data-side="original" data-alt="ECHO example 05: Original (GT)">
+                    <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
+                  </div>
+                </div>
+                <div class="video-panel">
+                  <p class="video-label">Synthetic</p>
+                  <div class="media-slot video-slot" data-video="echo" data-example="4" data-side="synthetic" data-alt="ECHO example 05: Synthetic">
+                    <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="video-example" aria-label="ECHO example 06">
+              <div class="video-pair">
+                <div class="video-panel">
+                  <p class="video-label">Original (GT)</p>
+                  <div class="media-slot video-slot" data-video="echo" data-example="5" data-side="original" data-alt="ECHO example 06: Original (GT)">
+                    <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
+                  </div>
+                </div>
+                <div class="video-panel">
+                  <p class="video-label">Synthetic</p>
+                  <div class="media-slot video-slot" data-video="echo" data-example="5" data-side="synthetic" data-alt="ECHO example 06: Synthetic">
+                    <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section citation-section" id="bibtex" aria-labelledby="bibtex-title">
+      <div class="container is-max-desktop content">
+        <h2 class="title" id="bibtex-title">BibTeX</h2>
+        <pre aria-label="BibTeX citation"><code id="bibtex-code"></code></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>The website template is borrowed from <a href="https://github.com/nerfies/nerfies.github.io" target="_blank" rel="noopener noreferrer">Nerfies website template</a> under a <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <a class="back-to-top" href="#top" aria-label="Back to top" title="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 20V4m-7 7 7-7 7 7"/></svg>
+  </a>
+  <dialog id="figure-dialog" aria-label="Expanded figure"><button id="close-figure" type="button" aria-label="Close expanded figure">×</button><img id="expanded-figure" alt=""></dialog>
+</body>
+</html>
