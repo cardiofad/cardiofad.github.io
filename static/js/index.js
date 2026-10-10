@@ -48,6 +48,9 @@
 
   document.querySelectorAll("[data-video]").forEach(slot => {
     const example = config.videos?.[slot.dataset.video]?.[Number(slot.dataset.example)];
+    // The paired viewer owns lazy loading, observed inputs and shared playback.
+    if ((slot.dataset.video === "cmr" && example?.sliceDirectory) ||
+        (slot.dataset.video === "echo" && example?.observed)) return;
     const src = example?.[slot.dataset.side]?.trim();
     if (!src) return;
     const placeholder = slot.firstElementChild;
@@ -166,6 +169,22 @@
         event.stopPropagation();
       }
     }, true);
+  }
+
+  const methodDetails = document.getElementById("method-details");
+  if (methodDetails) {
+    // Existing method cards and direct section links reveal the folded text.
+    const revealMethodTarget = () => {
+      const target = document.getElementById(window.location.hash.slice(1));
+      if (!target || target === methodDetails || !methodDetails.contains(target)) return;
+      methodDetails.open = true;
+      target.scrollIntoView({ block: "start" });
+    };
+    document.querySelectorAll(".method-overview a").forEach(link => {
+      link.addEventListener("click", () => { methodDetails.open = true; });
+    });
+    window.addEventListener("hashchange", revealMethodTarget);
+    revealMethodTarget();
   }
 
   const bibtex = (config.bibtex || "").trim();
