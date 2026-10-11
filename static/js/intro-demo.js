@@ -1,19 +1,24 @@
-/* Illustrative anchors and synchronized playback, independent of the full gallery. */
 (() => {
   "use strict";
   const section = document.getElementById("intro-demo");
   if (!section) return;
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  // Keep the compact demo at 80% of the gallery's responsive media size.
-  const galleryMedia = document.querySelector(".cmr-examples-grid .video-slot");
-  if (galleryMedia) {
+  // Preserve the demo's established responsive size while result cards are compacted.
+  const galleryContainer = document.querySelector("#videos > .container.page-width");
+  if (galleryContainer) {
     const matchMediaSize = () => {
-      const size = galleryMedia.getBoundingClientRect().width;
+      const available = galleryContainer.getBoundingClientRect().width;
+      const mobile = window.matchMedia("(max-width: 760px)").matches;
+      const singleColumn = window.matchMedia("(max-width: 1330px)").matches;
+      // Original card widths and insets define this independent demo sizing baseline.
+      const cardWidth = mobile ? Math.min(520, available)
+        : singleColumn ? Math.min(760, available) : (available - 26) / 2;
+      const size = mobile ? (cardWidth - 38) / 2 : (cardWidth - 106) / 3;
       if (size > 0) section.style.setProperty("--intro-media-size", `${size * .8}px`);
     };
     matchMediaSize();
-    if ("ResizeObserver" in window) new ResizeObserver(matchMediaSize).observe(galleryMedia);
+    if ("ResizeObserver" in window) new ResizeObserver(matchMediaSize).observe(galleryContainer);
     else window.addEventListener("resize", matchMediaSize);
   }
 
@@ -22,13 +27,14 @@
     const name = modality.toUpperCase();
     const frameCount = Number(card.dataset.frameCount);
     const fps = Number(card.dataset.fps);
-    // These indices are sampled once for illustration, not learned anchor predictions.
     const keyframes = card.dataset.keyframes.split(",").map(Number);
     const videos = Array.from(card.querySelectorAll("video"));
     const [master, follower] = videos;
     const button = card.querySelector(".intro-demo-toggle");
     const status = card.querySelector(".intro-demo-status");
     const timeline = card.querySelector(".intro-demo-time-slider");
+    const keyTrack = card.querySelector(".intro-demo-keyframe-track");
+    const keyMarker = card.querySelector(".intro-demo-keyframe-marker");
     const keySlider = card.querySelector(".intro-demo-keyframe-slider");
     const keyReadout = card.querySelector(".intro-demo-keyframe-readout");
     const keyImage = card.querySelector(".intro-demo-keyframe-image");
@@ -82,6 +88,8 @@
       keyImage.alt = `Illustrative ${name} keyframe ${keyIndex + 1} of ${keyframes.length}: frame ${frame + 1} of ${frameCount}${slice !== null ? `, slice ${slice + 1} of 13` : ""}`;
       keyReadout.value = label;
       keySlider.setAttribute("aria-valuetext", label);
+      keyTrack.style.setProperty("--keyframe-progress", `${frame / (frameCount - 1) * 100}%`);
+      keyMarker.dataset.frame = String(frame);
       paint(keySlider);
     };
     const updateObserved = (force = false) => {
@@ -189,7 +197,6 @@
     keySlider.addEventListener("input", () => {
       keyIndex = Number(keySlider.value);
       updateKeyframe();
-      seekFrame(keyframes[keyIndex]);
     });
     timeline.addEventListener("input", () => seekFrame(Number(timeline.value)));
     sliceSlider?.addEventListener("input", () => {

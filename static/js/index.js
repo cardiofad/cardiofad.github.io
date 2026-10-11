@@ -188,7 +188,35 @@
   }
 
   const bibtex = (config.bibtex || "").trim();
-  document.getElementById("bibtex-code").textContent = bibtex;
+  const bibtexCode = document.getElementById("bibtex-code");
+  bibtexCode.textContent = bibtex;
+  const copyBibtex = document.getElementById("copy-bibtex");
+  const copyStatus = document.getElementById("bibtex-copy-status");
+  copyBibtex.disabled = !bibtex;
+  copyBibtex.title = bibtex ? "Copy citation to clipboard" : "BibTeX is not available yet.";
+  if (!bibtex) copyStatus.textContent = "BibTeX is not available yet.";
+  let copyFeedbackTimer;
+  copyBibtex.addEventListener("click", async () => {
+    const citation = bibtexCode.textContent.trim();
+    if (!citation) return;
+    clearTimeout(copyFeedbackTimer);
+    copyBibtex.disabled = true;
+    let copied = false;
+    try {
+      await navigator.clipboard.writeText(citation);
+      copied = true;
+    } catch {
+      // Report denied or unavailable clipboard access without claiming a successful copy.
+    }
+    copyBibtex.disabled = false;
+    copyBibtex.focus({ preventScroll: true });
+    copyBibtex.textContent = copied ? "Copied!" : "Copy failed";
+    copyStatus.textContent = copied ? "BibTeX citation copied to clipboard." : "Copy failed. Please select and copy the citation manually.";
+    copyFeedbackTimer = setTimeout(() => {
+      copyBibtex.textContent = "Copy BibTeX";
+      copyStatus.textContent = "";
+    }, 2000);
+  });
 
   document.getElementById("close-figure").addEventListener("click", () => dialog.close());
   dialog.addEventListener("click", event => { if (event.target === dialog) dialog.close(); });

@@ -15,20 +15,20 @@
   <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
   <link rel="stylesheet" href="static/css/academicons.min.css">
-  <link rel="stylesheet" href="static/css/index.css?v=20261010-method-details">
-  <link rel="stylesheet" href="static/css/cmr-viewer.css?v=20261011-speed">
-  <link rel="stylesheet" href="static/css/keyframe-timeline.css?v=20261011-slice-preview">
-  <link rel="stylesheet" href="static/css/intro-demo.css?v=20261011-compact">
+  <link rel="stylesheet" href="static/css/index.css?v=20261011-slider-spacing">
+  <link rel="stylesheet" href="static/css/cmr-viewer.css?v=20261012-keyframe-link">
+  <link rel="stylesheet" href="static/css/keyframe-timeline.css?v=20261011-slider-spacing">
+  <link rel="stylesheet" href="static/css/intro-demo.css?v=20261012-keyframe-link">
   <link rel="stylesheet" href="static/css/quantitative-results.css?v=20261009-matched-controls">
   <script src="static/js/fontawesome.all.min.js" defer></script>
   <script src="static/js/config.js?v=20261010-echo-observed" defer></script>
   <script src="static/js/bulma-carousel.min.js" defer></script>
-  <script src="static/js/index.js?v=20261010-method-details" defer></script>
+  <script src="static/js/index.js?v=20261011-copy-bibtex" defer></script>
   <script src="static/js/keyframe-data.js?v=20261011" defer></script>
   <script src="static/js/video-playback.js?v=20261011" defer></script>
   <script src="static/js/keyframe-timeline.js?v=20261011-slice-preview" defer></script>
   <script src="static/js/cmr-viewer.js?v=20261011-speed" defer></script>
-  <script src="static/js/intro-demo.js?v=20261011-speed" defer></script>
+  <script src="static/js/intro-demo.js?v=20261012-keyframe-link" defer></script>
   <script src="static/js/quantitative-results.js?v=20261009" defer></script>
 </head>
 <body>
@@ -37,7 +37,7 @@
     <div class="nav-inner">
       <a class="wordmark" href="#top" aria-label="CardioFAD home">CardioFAD</a>
       <div class="nav-links">
-        <a href="#abstract">Abstract</a><a href="#insight">Key insight</a><a href="#method">Method</a><a href="#results">Generation</a><a href="#videos">Videos</a>
+        <a href="#abstract">Abstract</a><a href="#insight">Key insight</a><a href="#method">Method</a><a href="#results">Results</a><a href="#videos">Videos</a>
       </div>
     </div>
   </nav>
@@ -122,7 +122,7 @@
                   <div class="intro-demo-media">
                     <img class="intro-demo-keyframe-image" src="static/images/intro-demo/keyframes/cmr/depth_06/frame_002.png" width="128" height="128" alt="Illustrative CMR keyframe 1 of 10: frame 3 of 50, slice 7 of 13" decoding="async">
                   </div>
-                  <output class="intro-demo-keyframe-readout" for="intro-cmr-keyframe">Keyframe 1 / 10 · Frame 3 / 50</output>
+                  <output class="intro-demo-keyframe-readout" id="intro-cmr-keyframe-readout" for="intro-cmr-keyframe">Keyframe 1 / 10 · Frame 3 / 50</output>
                   <input class="cmr-time-slider intro-demo-keyframe-slider" id="intro-cmr-keyframe" type="range" min="0" max="9" step="1" value="0" aria-label="CMR demo: keyframe selection">
                 </figure>
                 <span class="intro-demo-arrow intro-demo-generation-arrow" aria-hidden="true"><svg viewBox="0 0 28 24"><path d="M3 12h21m-7-7 7 7-7 7"/></svg></span>
@@ -142,7 +142,10 @@
                   <p class="intro-demo-type intro-demo-output-type">3D+t sequence</p>
                   <div class="intro-demo-playback">
                     <button class="intro-demo-toggle" type="button" aria-label="Pause CMR demo videos">Pause</button>
-                    <input class="cmr-time-slider intro-demo-time-slider" type="range" min="0" max="49" step="1" value="0" aria-label="CMR demo: shared playback frame" disabled>
+                    <div class="intro-demo-timeline">
+                      <div class="intro-demo-keyframe-track" aria-hidden="true"><span class="intro-demo-keyframe-marker"></span></div>
+                      <input class="cmr-time-slider intro-demo-time-slider" type="range" min="0" max="49" step="1" value="0" aria-label="CMR demo: shared playback frame" aria-describedby="intro-cmr-keyframe-readout" disabled>
+                    </div>
                   </div>
                 </div>
                 <div class="intro-demo-slice-control">
@@ -169,7 +172,7 @@
                   <div class="intro-demo-media">
                     <img class="intro-demo-keyframe-image" src="static/images/intro-demo/keyframes/echo/frame_001.png" width="112" height="112" alt="Illustrative ECHO keyframe 1 of 8: frame 2 of 125" decoding="async">
                   </div>
-                  <output class="intro-demo-keyframe-readout" for="intro-echo-keyframe">Keyframe 1 / 8 · Frame 2 / 125</output>
+                  <output class="intro-demo-keyframe-readout" id="intro-echo-keyframe-readout" for="intro-echo-keyframe">Keyframe 1 / 8 · Frame 2 / 125</output>
                   <input class="cmr-time-slider intro-demo-keyframe-slider" id="intro-echo-keyframe" type="range" min="0" max="7" step="1" value="0" aria-label="ECHO demo: keyframe selection">
                 </figure>
                 <span class="intro-demo-arrow intro-demo-generation-arrow" aria-hidden="true"><svg viewBox="0 0 28 24"><path d="M3 12h21m-7-7 7 7-7 7"/></svg></span>
@@ -189,7 +192,10 @@
                   <p class="intro-demo-type intro-demo-output-type">2D+t video</p>
                   <div class="intro-demo-playback">
                     <button class="intro-demo-toggle" type="button" aria-label="Pause ECHO demo videos">Pause</button>
-                    <input class="cmr-time-slider intro-demo-time-slider" type="range" min="0" max="124" step="1" value="0" aria-label="ECHO demo: shared playback frame" disabled>
+                    <div class="intro-demo-timeline">
+                      <div class="intro-demo-keyframe-track" aria-hidden="true"><span class="intro-demo-keyframe-marker"></span></div>
+                      <input class="cmr-time-slider intro-demo-time-slider" type="range" min="0" max="124" step="1" value="0" aria-label="ECHO demo: shared playback frame" aria-describedby="intro-echo-keyframe-readout" disabled>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -250,7 +256,8 @@
         </div>
         <figure class="paper-figure">
           <div class="media-slot framework-slot" data-image="framework" data-alt="CardioFAD framework with Focus, Align, and two-stage Diffuse modules."><div class="media-placeholder"><span class="placeholder-index">FIGURE 2</span><span class="placeholder-title">Framework</span></div></div>
-          <figcaption class="caption-detail"><strong>Overview of CardioFAD.</strong> <strong>Focus:</strong> A tokenizer learns keyframes that retain enough information to reconstruct cardiac dynamics. <strong>Align:</strong> Keyframe-weighted alignment synchronizes visual and ECG latents, establishing cross-modal anchors. <strong>Diffuse:</strong> A video diffusion transformer first generates keyframes, then interpolates the remaining frames.</figcaption>
+          <figcaption class="caption-detail"><strong>Overview of CardioFAD.</strong> <strong>Focus</strong> learns trajectory-informative keyframes. <strong>Align</strong> establishes keyframe-weighted ECG–visual alignment. <strong>Diffuse</strong> first generates keyframes, then interpolates the remaining frames.</figcaption>
+
         </figure>
         <details class="method-details" id="method-details">
           <summary>Method details</summary>
@@ -274,7 +281,7 @@
 
     <section class="section results-section" id="results" aria-labelledby="results-title">
       <div class="container page-width">
-        <h2 class="title is-3 section-title" id="results-title">Generation</h2>
+        <h2 class="title is-3 section-title" id="results-title">Results</h2>
         <p class="section-intro">One volume or slice for CMR. One frame for ECHO.</p>
         <div class="result-highlights" role="group" aria-label="Generation result highlights">
           <!-- Paper Tables 1–3. Every comparison uses the matched CardioFAD (One-stage) baseline.
@@ -749,8 +756,12 @@
 
     <section class="section citation-section" id="bibtex" aria-labelledby="bibtex-title">
       <div class="container is-max-desktop content">
-        <h2 class="title" id="bibtex-title">BibTeX</h2>
+        <div class="citation-header">
+          <h2 class="title" id="bibtex-title">BibTeX</h2>
+          <button class="citation-copy" id="copy-bibtex" type="button" aria-describedby="bibtex-copy-status" disabled>Copy BibTeX</button>
+        </div>
         <pre aria-label="BibTeX citation"><code id="bibtex-code"></code></pre>
+        <span class="sr-only" id="bibtex-copy-status" role="status" aria-live="polite" aria-atomic="true"></span>
       </div>
     </section>
   </main>
