@@ -16,15 +16,19 @@
   <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
   <link rel="stylesheet" href="static/css/academicons.min.css">
   <link rel="stylesheet" href="static/css/index.css?v=20261010-method-details">
-  <link rel="stylesheet" href="static/css/cmr-viewer.css?v=20261010-echo-observed">
-  <link rel="stylesheet" href="static/css/intro-demo.css?v=20261010-shared-labels">
+  <link rel="stylesheet" href="static/css/cmr-viewer.css?v=20261011-speed">
+  <link rel="stylesheet" href="static/css/keyframe-timeline.css?v=20261011-slice-preview">
+  <link rel="stylesheet" href="static/css/intro-demo.css?v=20261011-compact">
   <link rel="stylesheet" href="static/css/quantitative-results.css?v=20261009-matched-controls">
   <script src="static/js/fontawesome.all.min.js" defer></script>
   <script src="static/js/config.js?v=20261010-echo-observed" defer></script>
   <script src="static/js/bulma-carousel.min.js" defer></script>
   <script src="static/js/index.js?v=20261010-method-details" defer></script>
-  <script src="static/js/cmr-viewer.js?v=20261010-echo-observed" defer></script>
-  <script src="static/js/intro-demo.js?v=20261010" defer></script>
+  <script src="static/js/keyframe-data.js?v=20261011" defer></script>
+  <script src="static/js/video-playback.js?v=20261011" defer></script>
+  <script src="static/js/keyframe-timeline.js?v=20261011-slice-preview" defer></script>
+  <script src="static/js/cmr-viewer.js?v=20261011-speed" defer></script>
+  <script src="static/js/intro-demo.js?v=20261011-speed" defer></script>
   <script src="static/js/quantitative-results.js?v=20261009" defer></script>
 </head>
 <body>
@@ -101,39 +105,56 @@
         <section class="intro-demo" id="intro-demo" aria-labelledby="intro-demo-title">
           <h2 id="intro-demo-title">From one cardiac observation to a dynamic sequence.</h2>
           <div class="intro-demo-grid">
-            <article class="intro-demo-card" aria-label="CMR: one volume to a dynamic sequence">
+            <article class="intro-demo-card" aria-label="CMR: one volume to a dynamic sequence" data-modality="cmr" data-frame-count="50" data-fps="20" data-keyframes="2,3,17,21,22,30,31,43,48,49" data-slice-directory="static/videos/CMR/slices/UKBB/1045169_20209_2_0_CINE_SAX_4D" data-observed-directory="static/images/CMR/observed/1045169_20209_2_0_CINE_SAX_4D/frame_18">
               <div class="intro-demo-heading"><h3>CMR</h3><span>Volume2Seq</span></div>
               <div class="intro-demo-flow">
                 <figure class="intro-demo-step intro-demo-input">
                   <figcaption>Observed input</figcaption>
-                  <div class="intro-demo-media intro-demo-volume" role="img" aria-label="Single 3D CMR volume, illustrated with three slices from the same time point">
-                    <img src="static/images/intro-demo/cmr-volume-depth-02.png" width="128" height="128" alt="" decoding="async">
-                    <img src="static/images/intro-demo/cmr-volume-depth-04.png" width="128" height="128" alt="" decoding="async">
-                    <img src="static/images/intro-demo/cmr-volume-depth-06.png" width="128" height="128" alt="" decoding="async">
+                  <div class="intro-demo-media intro-demo-volume" role="img" aria-label="Single 3D CMR volume; selected slice 7 of 13, observed frame 19 of 50">
+                    <img src="static/images/CMR/observed/1045169_20209_2_0_CINE_SAX_4D/frame_18/depth_06.png" width="128" height="128" alt="" decoding="async">
                   </div>
                   <p class="intro-demo-type">Single 3D volume</p>
+                  <p class="intro-demo-input-meta"><span>Slice 7 / 13</span><span>Frame 19 / 50</span></p>
                 </figure>
                 <span class="intro-demo-arrow" aria-hidden="true"><svg viewBox="0 0 28 24"><path d="M3 12h21m-7-7 7 7-7 7"/></svg></span>
+                <figure class="intro-demo-step intro-demo-keyframes">
+                  <figcaption>Synthesized keyframes</figcaption>
+                  <div class="intro-demo-media">
+                    <img class="intro-demo-keyframe-image" src="static/images/intro-demo/keyframes/cmr/depth_06/frame_002.png" width="128" height="128" alt="Illustrative CMR keyframe 1 of 10: frame 3 of 50, slice 7 of 13" decoding="async">
+                  </div>
+                  <output class="intro-demo-keyframe-readout" for="intro-cmr-keyframe">Keyframe 1 / 10 · Frame 3 / 50</output>
+                  <input class="cmr-time-slider intro-demo-keyframe-slider" id="intro-cmr-keyframe" type="range" min="0" max="9" step="1" value="0" aria-label="CMR demo: keyframe selection">
+                </figure>
+                <span class="intro-demo-arrow intro-demo-generation-arrow" aria-hidden="true"><svg viewBox="0 0 28 24"><path d="M3 12h21m-7-7 7 7-7 7"/></svg></span>
                 <div class="intro-demo-output">
                   <figure class="intro-demo-step intro-demo-generated">
-                    <figcaption>CardioFAD</figcaption>
+                    <figcaption>Generated sequence</figcaption>
                     <div class="intro-demo-media">
-                      <video muted playsinline preload="none" poster="static/images/intro-demo/cmr-cardiofad-poster.png" data-demo-src="static/videos/intro-demo/cmr-cardiofad.mp4" aria-label="CMR CardioFAD sequence, middle slice"></video>
+                      <video muted playsinline preload="none" poster="static/images/intro-demo/cmr-cardiofad-poster.png" data-side="Synthetic" data-demo-src="static/videos/CMR/slices/UKBB/1045169_20209_2_0_CINE_SAX_4D/depth_06_Synthetic.mp4" aria-label="CMR generated sequence, slice 7 of 13"></video>
                     </div>
                   </figure>
-                  <span class="intro-demo-arrow" aria-hidden="true"><svg viewBox="0 0 28 24"><path d="M3 12h21m-7-7 7 7-7 7"/></svg></span>
-                  <figure class="intro-demo-step">
+                  <figure class="intro-demo-step intro-demo-reference">
                     <figcaption>Ground truth</figcaption>
                     <div class="intro-demo-media">
-                      <video muted playsinline preload="none" poster="static/images/intro-demo/cmr-gt-poster.png" data-demo-src="static/videos/intro-demo/cmr-gt.mp4" aria-label="CMR ground-truth sequence, same middle slice"></video>
+                      <video muted playsinline preload="none" poster="static/images/intro-demo/cmr-gt-poster.png" data-side="GT" data-demo-src="static/videos/CMR/slices/UKBB/1045169_20209_2_0_CINE_SAX_4D/depth_06_GT.mp4" aria-label="CMR ground-truth sequence, slice 7 of 13"></video>
                     </div>
                   </figure>
                   <p class="intro-demo-type intro-demo-output-type">3D+t sequence</p>
+                  <div class="intro-demo-playback">
+                    <button class="intro-demo-toggle" type="button" aria-label="Pause CMR demo videos">Pause</button>
+                    <input class="cmr-time-slider intro-demo-time-slider" type="range" min="0" max="49" step="1" value="0" aria-label="CMR demo: shared playback frame" disabled>
+                  </div>
+                </div>
+                <div class="intro-demo-slice-control">
+                  <label for="intro-cmr-slice">Slice</label>
+                  <input class="cmr-slice-slider intro-demo-slice-slider" id="intro-cmr-slice" type="range" min="1" max="11" step="1" value="6" aria-label="CMR demo: shared slice position">
+                  <output class="cmr-slice-value" for="intro-cmr-slice">7 / 13</output>
                 </div>
               </div>
+              <p class="intro-demo-status" role="status" aria-live="polite"></p>
             </article>
-            <article class="intro-demo-card" aria-label="ECHO: one frame to a dynamic sequence">
-              <div class="intro-demo-heading"><h3>ECHO</h3><span>Frame2Seq</span></div>
+            <article class="intro-demo-card" aria-label="ECHO: one frame to a dynamic sequence" data-modality="echo" data-frame-count="125" data-fps="50" data-keyframes="1,27,44,85,88,90,97,110">
+              <div class="intro-demo-heading"><h3>ECHO</h3><span>Frame2Video</span></div>
               <div class="intro-demo-flow">
                 <figure class="intro-demo-step intro-demo-input">
                   <figcaption>Observed input</figcaption>
@@ -143,30 +164,41 @@
                   <p class="intro-demo-type">Single frame</p>
                 </figure>
                 <span class="intro-demo-arrow" aria-hidden="true"><svg viewBox="0 0 28 24"><path d="M3 12h21m-7-7 7 7-7 7"/></svg></span>
+                <figure class="intro-demo-step intro-demo-keyframes">
+                  <figcaption>Synthesized keyframes</figcaption>
+                  <div class="intro-demo-media">
+                    <img class="intro-demo-keyframe-image" src="static/images/intro-demo/keyframes/echo/frame_001.png" width="112" height="112" alt="Illustrative ECHO keyframe 1 of 8: frame 2 of 125" decoding="async">
+                  </div>
+                  <output class="intro-demo-keyframe-readout" for="intro-echo-keyframe">Keyframe 1 / 8 · Frame 2 / 125</output>
+                  <input class="cmr-time-slider intro-demo-keyframe-slider" id="intro-echo-keyframe" type="range" min="0" max="7" step="1" value="0" aria-label="ECHO demo: keyframe selection">
+                </figure>
+                <span class="intro-demo-arrow intro-demo-generation-arrow" aria-hidden="true"><svg viewBox="0 0 28 24"><path d="M3 12h21m-7-7 7 7-7 7"/></svg></span>
                 <div class="intro-demo-output">
                   <figure class="intro-demo-step intro-demo-generated">
-                    <figcaption>CardioFAD</figcaption>
+                    <figcaption>Generated sequence</figcaption>
                     <div class="intro-demo-media">
                       <video muted playsinline preload="none" poster="static/images/intro-demo/echo-cardiofad-poster.png" data-demo-src="static/videos/intro-demo/echo-cardiofad.mp4" aria-label="ECHO CardioFAD sequence"></video>
                     </div>
                   </figure>
-                  <span class="intro-demo-arrow" aria-hidden="true"><svg viewBox="0 0 28 24"><path d="M3 12h21m-7-7 7 7-7 7"/></svg></span>
-                  <figure class="intro-demo-step">
+                  <figure class="intro-demo-step intro-demo-reference">
                     <figcaption>Ground truth</figcaption>
                     <div class="intro-demo-media">
                       <video muted playsinline preload="none" poster="static/images/intro-demo/echo-gt-poster.png" data-demo-src="static/videos/intro-demo/echo-gt.mp4" aria-label="ECHO ground-truth sequence"></video>
                     </div>
                   </figure>
                   <p class="intro-demo-type intro-demo-output-type">2D+t video</p>
+                  <div class="intro-demo-playback">
+                    <button class="intro-demo-toggle" type="button" aria-label="Pause ECHO demo videos">Pause</button>
+                    <input class="cmr-time-slider intro-demo-time-slider" type="range" min="0" max="124" step="1" value="0" aria-label="ECHO demo: shared playback frame" disabled>
+                  </div>
                 </div>
               </div>
+              <p class="intro-demo-status" role="status" aria-live="polite"></p>
             </article>
           </div>
           <div class="intro-demo-footer">
-            <button class="intro-demo-toggle" type="button" aria-label="Pause opening demo" hidden>Pause demo</button>
             <a href="#videos">View all examples <span aria-hidden="true">→</span></a>
           </div>
-          <p class="intro-demo-status" role="status" aria-live="polite"></p>
         </section>
         <figure class="paper-figure" id="figure-teaser">
           <div class="media-slot teaser-slot" data-image="teaser" data-alt="CardioFAD teaser: sparse observations, recoverable and alignable keyframe anchors, and cardiac dynamic synthesis.">
@@ -439,11 +471,34 @@
 
     <section class="section video-section" id="videos" aria-labelledby="videos-title">
       <div class="container page-width">
-        <h2 class="title is-3 section-title" id="videos-title">Video Results</h2>
+        <div class="video-section-heading">
+          <h2 class="title is-3 section-title" id="videos-title">Video Results</h2>
+          <div class="video-global-controls">
+            <div class="video-speed-controls" id="video-speed-controls" role="group" aria-label="Playback speed for all videos">
+              <span class="video-speed-label" aria-hidden="true">Speed</span>
+              <button type="button" data-rate="1" aria-pressed="true" aria-label="1× playback speed">1×</button>
+              <button type="button" data-rate="1.5" aria-pressed="false" aria-label="1.5× playback speed">1.5×</button>
+              <button type="button" data-rate="2" aria-pressed="false" aria-label="2× playback speed">2×</button>
+            </div>
+            <button class="video-play-all" id="video-play-all" type="button" data-action="pause" aria-controls="videos" hidden>
+              <svg class="video-all-pause-icon" viewBox="0 0 20 20" aria-hidden="true"><rect x="4" y="3" width="4" height="14" rx="1.5"/><rect x="12" y="3" width="4" height="14" rx="1.5"/></svg>
+              <svg class="video-all-play-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3.5a1 1 0 0 1 1.5-.86l10 6.5a1 1 0 0 1 0 1.72l-10 6.5a1 1 0 0 1-1.5-.86z"/></svg>
+              <span class="video-play-all-text">Pause all</span>
+            </button>
+          </div>
+        </div>
+        <div class="video-timeline-legend" aria-label="Timeline markers">
+          <span><i class="timeline-observed-symbol" aria-hidden="true"></i>Observed input</span>
+          <span><i class="timeline-keyframe-symbol" aria-hidden="true"></i>Keyframes</span>
+          <span><i class="timeline-current-symbol" aria-hidden="true"></i>Current frame</span>
+        </div>
         <div class="video-group cmr-group">
           <div class="subsection-heading"><h3>CMR Video Generation Examples</h3></div>
           <section class="cmr-task-group" aria-labelledby="cmr-volume2seq-title">
-            <h4 class="cmr-task-heading" id="cmr-volume2seq-title">Volume2Seq</h4>
+            <div class="video-task-heading">
+              <h4 class="cmr-task-heading" id="cmr-volume2seq-title">Volume2Seq</h4>
+              <p>Single volume <span aria-hidden="true">→</span> full 3D+t CMR sequence</p>
+            </div>
             <div class="video-grid cmr-examples-grid" aria-label="CMR Volume2Seq examples">
             <article class="video-example" aria-label="CMR example 01">
               <div class="video-pair">
@@ -454,7 +509,7 @@
                   </div>
                 </div>
                 <div class="video-panel">
-                  <p class="video-label">CardioFAD</p>
+                  <p class="video-label video-label-generated">CardioFAD</p>
                   <div class="media-slot video-slot" data-video="cmr" data-example="0" data-side="synthetic" data-alt="CMR example 01: CardioFAD">
                     <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
                   </div>
@@ -470,7 +525,7 @@
                   </div>
                 </div>
                 <div class="video-panel">
-                  <p class="video-label">CardioFAD</p>
+                  <p class="video-label video-label-generated">CardioFAD</p>
                   <div class="media-slot video-slot" data-video="cmr" data-example="1" data-side="synthetic" data-alt="CMR example 02: CardioFAD">
                     <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
                   </div>
@@ -486,7 +541,7 @@
                   </div>
                 </div>
                 <div class="video-panel">
-                  <p class="video-label">CardioFAD</p>
+                  <p class="video-label video-label-generated">CardioFAD</p>
                   <div class="media-slot video-slot" data-video="cmr" data-example="2" data-side="synthetic" data-alt="CMR example 03: CardioFAD">
                     <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
                   </div>
@@ -502,7 +557,7 @@
                   </div>
                 </div>
                 <div class="video-panel">
-                  <p class="video-label">CardioFAD</p>
+                  <p class="video-label video-label-generated">CardioFAD</p>
                   <div class="media-slot video-slot" data-video="cmr" data-example="3" data-side="synthetic" data-alt="CMR example 04: CardioFAD">
                     <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
                   </div>
@@ -512,7 +567,10 @@
             </div>
           </section>
           <section class="cmr-task-group" aria-labelledby="cmr-slice2seq-title">
-            <h4 class="cmr-task-heading" id="cmr-slice2seq-title">Slice2Seq</h4>
+            <div class="video-task-heading">
+              <h4 class="cmr-task-heading" id="cmr-slice2seq-title">Slice2Seq</h4>
+              <p>Single slice <span aria-hidden="true">→</span> full 3D+t CMR sequence</p>
+            </div>
             <div class="video-grid cmr-examples-grid" aria-label="CMR Slice2Seq examples">
             <article class="video-example" aria-label="CMR example 05">
               <div class="video-pair">
@@ -523,7 +581,7 @@
                   </div>
                 </div>
                 <div class="video-panel">
-                  <p class="video-label">CardioFAD</p>
+                  <p class="video-label video-label-generated">CardioFAD</p>
                   <div class="media-slot video-slot" data-video="cmr" data-example="4" data-side="synthetic" data-alt="CMR example 05: CardioFAD">
                     <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
                   </div>
@@ -539,7 +597,7 @@
                   </div>
                 </div>
                 <div class="video-panel">
-                  <p class="video-label">CardioFAD</p>
+                  <p class="video-label video-label-generated">CardioFAD</p>
                   <div class="media-slot video-slot" data-video="cmr" data-example="5" data-side="synthetic" data-alt="CMR example 06: CardioFAD">
                     <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
                   </div>
@@ -555,7 +613,7 @@
                   </div>
                 </div>
                 <div class="video-panel">
-                  <p class="video-label">CardioFAD</p>
+                  <p class="video-label video-label-generated">CardioFAD</p>
                   <div class="media-slot video-slot" data-video="cmr" data-example="6" data-side="synthetic" data-alt="CMR example 07: CardioFAD">
                     <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
                   </div>
@@ -571,7 +629,7 @@
                   </div>
                 </div>
                 <div class="video-panel">
-                  <p class="video-label">CardioFAD</p>
+                  <p class="video-label video-label-generated">CardioFAD</p>
                   <div class="media-slot video-slot" data-video="cmr" data-example="7" data-side="synthetic" data-alt="CMR example 08: CardioFAD">
                     <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
                   </div>
@@ -583,7 +641,11 @@
         </div>
         <div class="video-group echo-group">
           <div class="subsection-heading"><h3>ECHO Video Generation Examples</h3></div>
-          <div class="video-grid echo-examples-grid" aria-label="ECHO examples">
+          <div class="video-task-heading">
+            <h4 class="cmr-task-heading" id="echo-frame2video-title">Frame2Video</h4>
+            <p>Single frame <span aria-hidden="true">→</span> full 2D+t ECHO video</p>
+          </div>
+          <div class="video-grid echo-examples-grid" aria-labelledby="echo-frame2video-title">
             <article class="video-example" aria-label="ECHO example 01">
               <div class="video-pair">
                 <div class="video-panel">
@@ -593,7 +655,7 @@
                   </div>
                 </div>
                 <div class="video-panel">
-                  <p class="video-label">CardioFAD</p>
+                  <p class="video-label video-label-generated">CardioFAD</p>
                   <div class="media-slot video-slot" data-video="echo" data-example="0" data-side="synthetic" data-alt="ECHO example 01: CardioFAD">
                     <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
                   </div>
@@ -609,7 +671,7 @@
                   </div>
                 </div>
                 <div class="video-panel">
-                  <p class="video-label">CardioFAD</p>
+                  <p class="video-label video-label-generated">CardioFAD</p>
                   <div class="media-slot video-slot" data-video="echo" data-example="1" data-side="synthetic" data-alt="ECHO example 02: CardioFAD">
                     <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
                   </div>
@@ -625,7 +687,7 @@
                   </div>
                 </div>
                 <div class="video-panel">
-                  <p class="video-label">CardioFAD</p>
+                  <p class="video-label video-label-generated">CardioFAD</p>
                   <div class="media-slot video-slot" data-video="echo" data-example="2" data-side="synthetic" data-alt="ECHO example 03: CardioFAD">
                     <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
                   </div>
@@ -641,7 +703,7 @@
                   </div>
                 </div>
                 <div class="video-panel">
-                  <p class="video-label">CardioFAD</p>
+                  <p class="video-label video-label-generated">CardioFAD</p>
                   <div class="media-slot video-slot" data-video="echo" data-example="3" data-side="synthetic" data-alt="ECHO example 04: CardioFAD">
                     <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
                   </div>
@@ -657,7 +719,7 @@
                   </div>
                 </div>
                 <div class="video-panel">
-                  <p class="video-label">CardioFAD</p>
+                  <p class="video-label video-label-generated">CardioFAD</p>
                   <div class="media-slot video-slot" data-video="echo" data-example="4" data-side="synthetic" data-alt="ECHO example 05: CardioFAD">
                     <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
                   </div>
@@ -673,7 +735,7 @@
                   </div>
                 </div>
                 <div class="video-panel">
-                  <p class="video-label">CardioFAD</p>
+                  <p class="video-label video-label-generated">CardioFAD</p>
                   <div class="media-slot video-slot" data-video="echo" data-example="5" data-side="synthetic" data-alt="ECHO example 06: CardioFAD">
                     <div class="media-placeholder"><span class="play-outline" aria-hidden="true">▷</span><span class="placeholder-title">Video to be added</span></div>
                   </div>

@@ -4,6 +4,16 @@
 
   const examples = window.CARDIOFAD?.videos || {};
   const viewers = new Map();
+  const playbackControllers = new Set();
+  const playAllButton = document.getElementById("video-play-all");
+  const anyPlaying = () => Array.from(playbackControllers).some(controller => controller.isPlaying());
+  const updatePlayAllButton = () => {
+    if (!playAllButton) return;
+    const playing = anyPlaying();
+    playAllButton.hidden = playbackControllers.size === 0;
+    playAllButton.dataset.action = playing ? "pause" : "play";
+    playAllButton.querySelector(".video-play-all-text").textContent = playing ? "Pause all" : "Play all";
+  };
   const paintRange = input => {
     const min = Number(input.min);
     const span = Number(input.max) - min;
@@ -64,6 +74,10 @@
     card.dataset.task = example.task || "";
     const observed = example.observed;
     const frameCount = example.frameCount || 50;
+    const caseId = hasSlices ? example.sliceDirectory.split("/").pop()
+      : example.original.split("/").pop().replace(/_GT\.mp4$/, "");
+    const keyframeData = window.CARDIOFAD_KEYFRAMES?.[modality]?.[caseId];
+    let keyframeTimeline = null;
     const observedLabelText = !hasSlices ? "Observed frame" : observed?.type === "volume" ? "Observed volume" : "Observed slice";
     let observedSlot;
     let observedCaption;
@@ -169,20 +183,25 @@
       if (!hasSlices) return;
       const label = `${selectedSlice + 1} / ${sliceCount}`;
       sliceValue.textContent = label;
+      sliceInput.value = String(selectedSlice);
       sliceInput.setAttribute("aria-valuetext", `Slice ${selectedSlice + 1} of ${sliceCount}`);
       paintRange(sliceInput);
       card.dataset.slice = String(selectedSlice);
+      keyframeTimeline?.setSlice(selectedSlice);
     };
     const updatePlayButton = () => {
       const playingIntent = wantsPlay && !blocked;
       playButton.textContent = playingIntent ? "Pause" : "Play";
       playButton.setAttribute("aria-label", `${playingIntent ? "Pause" : "Play"} both videos in ${modalityLabel} example ${exampleIndex + 1}`);
+      updatePlayAllButton();
     };
     const updateTime = time => {
-      const value = Math.max(0, Math.min(duration || 0, time || 0));
-      timeInput.value = String(value);
+      const value = Math.max(0, Math.min(duration || (keyframeData ? frameCount / keyframeData.fps : 0), time || 0));
+      const frame = keyframeData ? Math.min(frameCount - 1, Math.floor(value * keyframeData.fps)) : null;
+      timeInput.value = String(frame ?? value);
       paintRange(timeInput);
-      timeInput.setAttribute("aria-valuetext", `${value.toFixed(1)} of ${duration.toFixed(1)} seconds`);
+      timeInput.setAttribute("aria-valuetext", frame !== null ? `Frame ${frame + 1} of ${frameCount}` : `${value.toFixed(1)} of ${duration.toFixed(1)} seconds`);
+      if (frame !== null) keyframeTimeline?.setFrame(frame);
     };
     const pausePair = () => {
       playTicket += 1;
@@ -197,7 +216,7 @@
     };
     const seekPair = time => {
       pausePair();
-      savedTime = Math.max(0, Math.min(time, Math.max(0, duration - 0.001)));
+      savedTime = Math.max(0, Math.min(time, duration > 0 ? Math.max(0, duration - 0.001) : Infinity));
       seekTarget = savedTime;
       alignmentPending = true;
       updateTime(savedTime);
@@ -250,7 +269,7 @@
       if (videos.some(video => video.readyState < 1)) return;
       duration = Math.min(...videos.map(video => video.duration));
       if (!Number.isFinite(duration) || duration <= 0) return;
-      timeInput.max = String(duration);
+      timeInput.max = String(keyframeData ? frameCount - 1 : duration);
       if (videos.some(video => video.seeking)) return;
       if (alignmentPending) {
         seekTarget = Math.max(0, Math.min(seekTarget, Math.max(0, duration - 0.001)));
@@ -339,42 +358,48 @@
         video.src = hasSlices ? `${directory}/depth_${depth}_${side === 0 ? "GT" : "Synthetic"}.mp4` : example[side === 0 ? "original" : "synthetic"];
         return video;
       });
-      videos.forEach(video => video.load());
+      videos.forEach(video => {
+        video.load();
+        window.CardioFADPlayback?.apply(video);
+      });
     };
 
-    sliceInput?.addEventListener("input", () => {
-      const next = Number(sliceInput.value);
-      if (next === selectedSlice) return;
-      rememberTime();
-      pausePair();
-      generation += 1;
-      selectedSlice = next;
-      loadedSlice = -1;
-      updateSlice();
-      timeInput.disabled = true;
-      card.setAttribute("aria-busy", String(active()));
-      clearTimeout(sliceTimer);
-      // A short debounce coalesces a drag, while every slice remains selectable.
-      if (active()) sliceTimer = setTimeout(loadSlice, 90);
-    });
-    sliceInput?.addEventListener("change", () => {
-      if (loadedSlice !== selectedSlice && active()) loadSlice();
-    });
-    playButton.addEventListener("click", () => {
-      if (blocked || !wantsPlay) {
-        wantsPlay = true;
+    const selectSlice = (value, commit = false) => {
+      const next = Math.max(minSlice, Math.min(maxSlice, Math.round(Number(value))));
+      if (!Number.isFinite(next)) return;
+      if (next !== selectedSlice) {
+        rememberTime();
+        pausePair();
+        generation += 1;
+        selectedSlice = next;
+        loadedSlice = -1;
+        updateSlice();
+        timeInput.disabled = true;
+        card.setAttribute("aria-busy", String(active()));
+        clearTimeout(sliceTimer);
+        // Both slice controls share the same phase and debounce while dragging.
+        if (active()) sliceTimer = setTimeout(loadSlice, 90);
+      }
+      if (commit && loadedSlice !== selectedSlice && active()) loadSlice();
+    };
+    sliceInput?.addEventListener("input", () => selectSlice(sliceInput.value));
+    sliceInput?.addEventListener("change", () => selectSlice(sliceInput.value, true));
+    const setPlaying = playing => {
+      wantsPlay = playing;
+      if (playing) {
         blocked = false;
         if (failed || loadedSlice !== selectedSlice) loadSlice();
         else maybeReady();
       } else {
-        wantsPlay = false;
         rememberTime();
         if (loadedSlice === selectedSlice && duration > 0 && !alignmentPending) seekPair(savedTime);
         else pausePair();
       }
       updatePlayButton();
-    });
-    timeInput.addEventListener("input", () => seekPair(Number(timeInput.value)));
+    };
+    playButton.addEventListener("click", () => setPlaying(blocked || !wantsPlay));
+    timeInput.addEventListener("input", () => seekPair(keyframeData
+      ? (Number(timeInput.value) + .5) / keyframeData.fps : Number(timeInput.value)));
     retryButton.addEventListener("click", () => {
       blocked = false;
       loadSlice();
@@ -387,6 +412,7 @@
         else maybeReady();
       } else {
         clearTimeout(sliceTimer);
+        keyframeTimeline?.close();
         rememberTime();
         pausePair();
         // Release offscreen decoders; restore the saved slice and time on return.
@@ -401,10 +427,25 @@
         card.setAttribute("aria-busy", "false");
       }
     };
+    if (keyframeData && window.createCardioFADKeyframeTimeline) {
+      keyframeTimeline = window.createCardioFADKeyframeTimeline({
+        card, timeInput, data: keyframeData, observedFrame: observed?.frame, modality, exampleIndex,
+        slice: hasSlices ? selectedSlice : null, sliceCount, minSlice, maxSlice,
+        onSliceChange: selectSlice,
+        onSelect: frame => {
+          wantsPlay = false;
+          blocked = false;
+          seekPair((frame + .5) / keyframeData.fps);
+          if (failed || loadedSlice !== selectedSlice) loadSlice();
+          updatePlayButton();
+        }
+      });
+    }
     viewers.set(card, inView => {
       visible = inView;
       refreshVisibility();
     });
+    playbackControllers.add({ isPlaying: () => wantsPlay && !blocked, setPlaying });
     document.addEventListener("visibilitychange", refreshVisibility);
     updateSlice();
     if (observed && hasSlices) {
@@ -413,6 +454,14 @@
     }
     updatePlayButton();
   });
+
+  playAllButton?.addEventListener("click", () => {
+    const playing = !anyPlaying();
+    // Update every example's intent; offscreen media still load only on demand.
+    playbackControllers.forEach(controller => controller.setPlaying(playing));
+    updatePlayAllButton();
+  });
+  updatePlayAllButton();
 
   if ("IntersectionObserver" in window) {
     const observer = new IntersectionObserver(entries => {
