@@ -15,17 +15,21 @@
   <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
   <link rel="stylesheet" href="static/css/academicons.min.css">
-  <link rel="stylesheet" href="static/css/index.css?v=20261011-slider-spacing">
+  <link rel="stylesheet" href="static/css/index.css?v=20261012-panel-hover">
+  <link rel="stylesheet" href="static/css/figure-lightbox.css?v=20261012">
   <link rel="stylesheet" href="static/css/cmr-viewer.css?v=20261012-keyframe-link">
   <link rel="stylesheet" href="static/css/keyframe-timeline.css?v=20261011-slider-spacing">
   <link rel="stylesheet" href="static/css/intro-demo.css?v=20261012-keyframe-link">
+  <link rel="stylesheet" href="static/css/method-animation.css?v=20261012-no-chapter-times">
   <link rel="stylesheet" href="static/css/quantitative-results.css?v=20261009-matched-controls">
   <script src="static/js/fontawesome.all.min.js" defer></script>
   <script src="static/js/config.js?v=20261010-echo-observed" defer></script>
   <script src="static/js/bulma-carousel.min.js" defer></script>
-  <script src="static/js/index.js?v=20261011-copy-bibtex" defer></script>
+  <script src="static/js/index.js?v=20261012-figure-lightbox" defer></script>
+  <script src="static/js/figure-lightbox.js?v=20261012" defer></script>
   <script src="static/js/keyframe-data.js?v=20261011" defer></script>
-  <script src="static/js/video-playback.js?v=20261011" defer></script>
+  <script src="static/js/video-playback.js?v=20261012-method" defer></script>
+  <script src="static/js/method-animation.js?v=20261012-caption-compact" defer></script>
   <script src="static/js/keyframe-timeline.js?v=20261011-slice-preview" defer></script>
   <script src="static/js/cmr-viewer.js?v=20261011-speed" defer></script>
   <script src="static/js/intro-demo.js?v=20261012-keyframe-link" defer></script>
@@ -110,7 +114,7 @@
               <div class="intro-demo-flow">
                 <figure class="intro-demo-step intro-demo-input">
                   <figcaption>Observed input</figcaption>
-                  <div class="intro-demo-media intro-demo-volume" role="img" aria-label="Single 3D CMR volume; selected slice 7 of 13, observed frame 19 of 50">
+                  <div class="intro-demo-media intro-demo-volume" role="group" aria-label="Single 3D CMR volume; selected slice 7 of 13, observed frame 19 of 50">
                     <img src="static/images/CMR/observed/1045169_20209_2_0_CINE_SAX_4D/frame_18/depth_06.png" width="128" height="128" alt="" decoding="async">
                   </div>
                   <p class="intro-demo-type">Single 3D volume</p>
@@ -238,30 +242,50 @@
 
     <section class="section" id="method" aria-labelledby="method-title">
       <div class="container page-width">
-        <h2 class="title is-3 section-title" id="method-title">Method</h2>
-        <p class="section-intro">Focus on the key moments. Align the cues. Diffuse the dynamics.</p>
-        <div class="method-overview" aria-label="Explore the three method components">
-          <a class="method-card method-focus-card" href="#method-focus" aria-labelledby="focus-card-title">
-            <h3 id="focus-card-title">Focus</h3>
-            <p>Discover motion-salient keyframes that preserve the full cardiac trajectory.</p>
-          </a>
-          <a class="method-card method-align-card" href="#method-align" aria-labelledby="align-card-title">
-            <h3 id="align-card-title">Align</h3>
-            <p>Connect visual states and time-series cues through informative cardiac anchors.</p>
-          </a>
-          <a class="method-card method-diffuse-card" href="#method-diffuse" aria-labelledby="diffuse-card-title">
-            <h3 id="diffuse-card-title">Diffuse</h3>
-            <p>Generate the keyframes first, then complete the cardiac sequence.</p>
-          </a>
+        <h2 class="title is-3 section-title" id="method-title">How CardioFAD works</h2>
+        <p class="section-intro">Learn informative anchors. Align temporal cues. Generate cardiac dynamics.</p>
+        <div class="method-animation" data-method-animation>
+          <div class="method-chapters" role="group" aria-label="Jump to an animation chapter">
+            <button class="method-chapter method-chapter-focus" type="button" data-method-seek="4" data-method-chapter="focus" aria-controls="method-video" aria-pressed="false" disabled>
+              <span class="method-chapter-heading"><span>Focus</span></span>
+              <span class="method-chapter-copy">Learn informative anchors</span>
+            </button>
+            <button class="method-chapter method-chapter-align" type="button" data-method-seek="11" data-method-chapter="align" aria-controls="method-video" aria-pressed="false" disabled>
+              <span class="method-chapter-heading"><span>Align</span></span>
+              <span class="method-chapter-copy">Connect temporal cues</span>
+            </button>
+            <button class="method-chapter method-chapter-diffuse" type="button" data-method-seek="18" data-method-chapter="diffuse" aria-controls="method-video" aria-pressed="false" disabled>
+              <span class="method-chapter-heading"><span>Diffuse</span></span>
+              <span class="method-chapter-copy">Generate, then interpolate</span>
+            </button>
+          </div>
+          <figure class="method-player" aria-labelledby="method-video-caption">
+            <video id="method-video" class="method-video" width="1920" height="1080" controls playsinline preload="none" poster="static/images/method/how-it-works-poster.jpg" data-independent-playback aria-label="How CardioFAD works: a 38-second method animation" aria-describedby="method-video-caption">
+              <source src="static/videos/method/cardiofad-how-it-works.mp4?v=20261012-compact-layout" type="video/mp4">
+              Your browser does not support embedded video. <a href="static/videos/method/cardiofad-how-it-works.mp4?v=20261012-compact-layout">Download the method animation</a> or read the method details below.
+            </video>
+            <figcaption class="method-current-scene" id="method-video-caption" aria-live="polite" aria-atomic="true">
+              <span class="method-scene-label" data-method-scene>Challenge</span>
+              <span class="method-scene-copy" data-method-caption>One cardiac observation leaves the motion between frames unknown.</span>
+            </figcaption>
+          </figure>
+          <div class="method-player-controls" data-method-controls hidden>
+            <div class="method-player-actions">
+              <button class="method-play-button" type="button" data-method-play aria-controls="method-video">Play animation</button>
+              <button class="method-secondary-button" type="button" data-method-replay aria-controls="method-video">Replay</button>
+              <button class="method-secondary-button" type="button" data-method-seek="0" data-method-chapter="overview" aria-controls="method-video" aria-pressed="true">Overview</button>
+            </div>
+          </div>
+          <p class="method-playback-status" data-method-status role="status" hidden></p>
+          <p class="method-motion-note">Reduced motion is enabled. The animation stays paused until you choose to play; a text walkthrough is available below.</p>
         </div>
-        <figure class="paper-figure">
-          <div class="media-slot framework-slot" data-image="framework" data-alt="CardioFAD framework with Focus, Align, and two-stage Diffuse modules."><div class="media-placeholder"><span class="placeholder-index">FIGURE 2</span><span class="placeholder-title">Framework</span></div></div>
-          <figcaption class="caption-detail"><strong>Overview of CardioFAD.</strong> <strong>Focus</strong> learns trajectory-informative keyframes. <strong>Align</strong> establishes keyframe-weighted ECG–visual alignment. <strong>Diffuse</strong> first generates keyframes, then interpolates the remaining frames.</figcaption>
-
-        </figure>
         <details class="method-details" id="method-details">
-          <summary>Method details</summary>
+          <summary>Full framework &amp; method details</summary>
           <div class="method-details-content">
+            <figure class="paper-figure method-framework">
+              <div class="media-slot framework-slot" data-image="framework" data-alt="CardioFAD framework with Focus, Align, and two-stage Diffuse modules."><div class="media-placeholder"><span class="placeholder-index">FIGURE 2</span><span class="placeholder-title">Framework</span></div></div>
+              <figcaption class="caption-detail"><strong>Overview of CardioFAD.</strong> <strong>Focus</strong> learns trajectory-informative keyframes. <strong>Align</strong> establishes keyframe-weighted ECG–visual alignment. <strong>Diffuse</strong> first generates keyframes, then interpolates the remaining frames.</figcaption>
+            </figure>
             <article class="method-detail" id="method-focus" aria-labelledby="focus-title">
               <h3 id="focus-title">Focus: learn motion-salient anchors</h3>
               <p>Focus learns motion-salient keyframes from the time-series signal. Reconstructing the full trajectory from these anchors encourages them to retain essential cardiac dynamics.</p>
@@ -274,6 +298,18 @@
               <h3 id="diffuse-title">Diffuse: complete the dynamics</h3>
               <p>Diffuse first generates keyframes from the sparse observation and aligned time-series guidance, then fills in the remaining frames. Both stages share one masked video diffusion model.</p>
             </article>
+            <div class="method-walkthrough" aria-labelledby="method-walkthrough-title">
+              <h3 id="method-walkthrough-title">Animation walkthrough</h3>
+              <ol>
+                <li><span>0:00–0:04</span><p><strong>Challenge.</strong> One cardiac observation leaves the motion between frames unknown.</p></li>
+                <li><span>0:04–0:11</span><p><strong>Focus.</strong> Learn motion-salient anchors that retain the information needed to reconstruct the trajectory.</p></li>
+                <li><span>0:11–0:18</span><p><strong>Align.</strong> Use informative anchors to connect visual states and time-series cues across modalities.</p></li>
+                <li><span>0:18–0:25</span><p><strong>Diffuse · Stage 1.</strong> Generate keyframes from the sparse observation and aligned time-series guidance.</p></li>
+                <li><span>0:25–0:32</span><p><strong>Diffuse · Stage 2.</strong> Condition on the generated anchors to interpolate the remaining frames.</p></li>
+                <li><span>0:32–0:38</span><p><strong>Output.</strong> Combine the generated keyframes and interpolated frames into a complete cardiac sequence.</p></li>
+              </ol>
+              <p class="method-source-note">Anchor thumbnails are extracted from the existing CMR reconstruction footage; they are not recorded intermediate samples from the two generation stages. The animation illustrates the method rather than a recorded inference run.</p>
+            </div>
           </div>
         </details>
       </div>
@@ -780,6 +816,12 @@
   <a class="back-to-top" href="#top" aria-label="Back to top" title="Back to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 20V4m-7 7 7-7 7 7"/></svg>
   </a>
-  <dialog id="figure-dialog" aria-label="Expanded figure"><button id="close-figure" type="button" aria-label="Close expanded figure">×</button><img id="expanded-figure" alt=""></dialog>
+  <dialog id="figure-dialog" class="figure-lightbox" aria-label="Expanded figure" aria-describedby="expanded-figure-caption">
+    <button id="close-figure" class="figure-lightbox-close" type="button" aria-label="Close expanded figure">×</button>
+    <figure class="figure-lightbox-content">
+      <div class="figure-lightbox-media"></div>
+      <figcaption id="expanded-figure-caption" class="figure-lightbox-caption"></figcaption>
+    </figure>
+  </dialog>
 </body>
 </html>

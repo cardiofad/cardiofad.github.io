@@ -2,8 +2,6 @@
 (() => {
   "use strict";
   const config = window.CARDIOFAD || {};
-  const dialog = document.getElementById("figure-dialog");
-  const expanded = document.getElementById("expanded-figure");
 
   for (const [id, url] of [["paper-link", config.paperUrl], ["arxiv-link", config.arxivUrl]]) {
     if (!url || !url.trim()) continue;
@@ -32,11 +30,6 @@
     button.type = "button";
     button.className = "figure-open";
     button.setAttribute("aria-label", `Expand ${img.alt}`);
-    button.addEventListener("click", () => {
-      expanded.src = img.src;
-      expanded.alt = img.alt;
-      dialog.showModal();
-    });
     img.addEventListener("load", () => {
       button.append(img);
       slot.replaceChildren(button);
@@ -217,10 +210,6 @@
       copyStatus.textContent = "";
     }, 2000);
   });
-
-  document.getElementById("close-figure").addEventListener("click", () => dialog.close());
-  dialog.addEventListener("click", event => { if (event.target === dialog) dialog.close(); });
-  dialog.addEventListener("close", () => expanded.removeAttribute("src"));
 
   const backToTop = document.querySelector(".back-to-top");
   if (backToTop) {

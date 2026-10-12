@@ -4,6 +4,8 @@
   const buttons = Array.from(document.querySelectorAll("#video-speed-controls [data-rate]"));
   let rate = 1;
   const apply = video => {
+    // The method timeline has its own timing and native playback controls.
+    if (video.hasAttribute("data-independent-playback")) return;
     // Keep the chosen rate when lazy loading or replacing a slice's source.
     video.defaultPlaybackRate = rate;
     video.playbackRate = rate;

@@ -88,11 +88,11 @@ figcaption.caption-detail strong{font-weight:700}
 .principle strong{font-weight:700;color:inherit}
 .insight-summary{text-align:center;color:#687a8e;font-size:18px;margin-top:18px}
 .method-overview{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;width:100%;max-width:960px;margin:0 auto 28px}
-.method-card{display:block;padding:14px 18px 22px;border-top:6px solid var(--method-accent);border-radius:16px;background:var(--method-surface);box-shadow:0 7px 19px rgba(25,34,47,.07);color:var(--ink);text-align:left;transition:box-shadow .18s}
+.method-card{display:block;padding:14px 18px 22px;border-top:6px solid var(--method-accent);border-radius:16px;background:var(--method-surface);box-shadow:0 7px 19px rgba(25,34,47,.07);color:var(--ink);text-align:left}
 .method-focus-card{--method-accent:#C1678E;--method-title:#C1678E;--method-surface:#fbf6f9}
 .method-align-card{--method-accent:#8B6DC8;--method-title:#8B6DC8;--method-surface:#f8f6fc}
 .method-diffuse-card{--method-accent:#6B85D5;--method-title:#6B85D5;--method-surface:#f5f7fd}
-.method-card:hover{color:var(--ink);box-shadow:0 9px 23px rgba(25,34,47,.12)}
+.method-card:hover{color:var(--ink)}
 .method-card h3{font-size:24px;font-weight:700;letter-spacing:-.4px;margin-bottom:4px;color:var(--method-title)}
 .method-card p{font-size:19px;color:var(--ink);line-height:1.5;margin:0}
 .method-details{max-width:900px;margin:38px auto 0;border:1px solid var(--line);border-radius:10px;background:#fff}
@@ -147,6 +147,26 @@ figcaption.caption-detail strong{font-weight:700}
   --highlight-accent: #a65179;
   --highlight-surface: #FCF4F8;
   --highlight-border: #eedce5;
+}
+/* Match VolumeProbe's panel lift, with each CardioFAD panel's own accent. */
+.principle { --panel-hover: var(--principle-accent); }
+.method-card { --panel-hover: var(--method-accent); }
+.result-highlight { --panel-hover: var(--highlight-accent); }
+.principle, .method-card, .result-highlight {
+  transition: transform .28s cubic-bezier(.2,.7,.3,1), box-shadow .28s ease, border-color .28s ease, outline-color .28s ease;
+}
+/* An inset outline adds the missing side borders without changing card dimensions. */
+.principle, .method-card { outline: 1px solid transparent; outline-offset: -1px; }
+@media (hover: hover) and (pointer: fine) {
+  .principle:hover, .method-card:hover, .result-highlight:hover {
+    transform: translateY(-6px);
+    border-color: var(--panel-hover);
+    box-shadow: 0 16px 32px -12px color-mix(in srgb, var(--panel-hover) 25%, transparent), 0 5px 12px rgba(25,34,47,.055);
+  }
+  .principle:hover, .method-card:hover { outline-color: var(--panel-hover); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .principle:hover, .method-card:hover, .result-highlight:hover { transform: none; }
 }
 .result-highlight-title {
   min-height: 2em;
@@ -271,10 +291,6 @@ figcaption.caption-detail strong{font-weight:700}
 .back-to-top:hover{background:#f7f8fa;color:var(--ink)}
 .back-to-top.is-inactive{opacity:0;visibility:hidden;pointer-events:none;transform:translateY(12px)}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-#figure-dialog{max-width:96vw;width:fit-content;max-height:95vh;padding:38px 20px 20px;border:0;border-radius:8px;overflow:auto;background:white}
-#figure-dialog::backdrop{background:rgba(18,27,40,.8)}
-#expanded-figure{display:block;width:auto;height:auto;max-width:90vw;max-height:none}
-#close-figure{position:absolute;right:7px;top:2px;border:0;background:transparent;color:#405063;font-size:28px;cursor:pointer;padding:0 8px}
 @media(min-width:1440px){.publication-header .hero-body{padding-top:65px}}
 @media(max-width:1000px){.paper-title{font-size:27px}.nav-links{gap:19px}.publication-header .hero-body{padding-top:42px}.desktop-break:last-child{display:none}}
 @media(max-width:760px){html{scroll-padding-top:116px}.site-nav{height:auto}.nav-inner{padding:11px 20px;flex-wrap:wrap;gap:9px}.wordmark{font-size:16px}.nav-code{margin-left:auto}.nav-links{order:3;width:100%;justify-content:center;gap:23px;overflow-x:auto;font-size:11px;padding-top:5px}.container.page-width,.container.text-width{width:calc(100% - 40px)}.publication-header .hero-body{padding:13px 10px 13px}.project-name{font-size:45px;margin-bottom:15px}.paper-title{font-size:24px;letter-spacing:-.6px}.desktop-break{display:none}.publication-title{margin-bottom:23px}.tldr-title{font-size:20px;margin-bottom:6px}.tldr-copy{font-size:17px;padding:14px 16px}.teaser-slot{aspect-ratio:2}.teaser{padding-bottom:28px}.section{padding:30px 0}.title.section-title{font-size:27px}.section-intro{font-size:15px;margin-bottom:22px}.abstract-copy{font-size:15px;line-height:1.2}.principles{grid-template-columns:1fr;gap:18px}.principle{padding:21px 23px 24px}.principle h3{font-size:22px}.principle p{font-size:16px}.method-overview{grid-template-columns:1fr;max-width:340px;gap:16px;margin-bottom:24px}.method-card{padding:20px 22px 22px}.method-card h3{font-size:24px;margin-bottom:8px}.method-card p{font-size:15px}.method-details{margin-top:24px}.method-detail h3{font-size:20px}.method-detail p{font-size:15px}.method-detail+.method-detail{margin-top:24px}.framework-slot{aspect-ratio:1.9}.table-slot{min-height:140px;aspect-ratio:2.7}.comparison-slot{aspect-ratio:1.65}.subsection-heading h3{font-size:18px}.results-heading h3{font-size:23px}.subsection-heading>span{font-size:8px;letter-spacing:.6px}.video-grid{gap:18px}.ablation-slot{aspect-ratio:1.85}.video-slot{aspect-ratio:1.1}.video-slot .placeholder-title{font-size:12px}.media-placeholder{padding:14px}.placeholder-title{font-size:15px}figcaption{font-size:17px}.video-group+.video-group{margin-top:26px}}
