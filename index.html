@@ -23,16 +23,16 @@
   <link rel="stylesheet" href="static/css/method-animation.css?v=20261012-no-chapter-times">
   <link rel="stylesheet" href="static/css/quantitative-results.css?v=20261009-matched-controls">
   <script src="static/js/fontawesome.all.min.js" defer></script>
-  <script src="static/js/config.js?v=20261010-echo-observed" defer></script>
+  <script src="static/js/config.js?v=20261013-neutral-case-names" defer></script>
   <script src="static/js/bulma-carousel.min.js" defer></script>
   <script src="static/js/index.js?v=20261012-figure-lightbox" defer></script>
   <script src="static/js/figure-lightbox.js?v=20261012" defer></script>
-  <script src="static/js/keyframe-data.js?v=20261011" defer></script>
+  <script src="static/js/keyframe-data.js?v=20261013-neutral-case-names" defer></script>
   <script src="static/js/video-playback.js?v=20261012-method" defer></script>
-  <script src="static/js/method-animation.js?v=20261012-caption-compact" defer></script>
+  <script src="static/js/method-animation.js?v=20261012-chapter-watch-v2" defer></script>
   <script src="static/js/keyframe-timeline.js?v=20261011-slice-preview" defer></script>
   <script src="static/js/cmr-viewer.js?v=20261011-speed" defer></script>
-  <script src="static/js/intro-demo.js?v=20261012-keyframe-link" defer></script>
+  <script src="static/js/intro-demo.js?v=20261013-keyframe-labels" defer></script>
   <script src="static/js/quantitative-results.js?v=20261009" defer></script>
 </head>
 <body>
@@ -109,13 +109,13 @@
         <section class="intro-demo" id="intro-demo" aria-labelledby="intro-demo-title">
           <h2 id="intro-demo-title">From one cardiac observation to a dynamic sequence.</h2>
           <div class="intro-demo-grid">
-            <article class="intro-demo-card" aria-label="CMR: one volume to a dynamic sequence" data-modality="cmr" data-frame-count="50" data-fps="20" data-keyframes="2,3,17,21,22,30,31,43,48,49" data-slice-directory="static/videos/CMR/slices/UKBB/1045169_20209_2_0_CINE_SAX_4D" data-observed-directory="static/images/CMR/observed/1045169_20209_2_0_CINE_SAX_4D/frame_18">
+            <article class="intro-demo-card" aria-label="CMR: one volume to a dynamic sequence" data-modality="cmr" data-frame-count="50" data-fps="20" data-keyframes="2,3,17,21,22,30,31,43,48,49" data-slice-directory="static/videos/CMR/slices/UKBB/ukbb_case_001" data-observed-directory="static/images/CMR/observed/ukbb_case_001/frame_18">
               <div class="intro-demo-heading"><h3>CMR</h3><span>Volume2Seq</span></div>
               <div class="intro-demo-flow">
                 <figure class="intro-demo-step intro-demo-input">
                   <figcaption>Observed input</figcaption>
                   <div class="intro-demo-media intro-demo-volume" role="group" aria-label="Single 3D CMR volume; selected slice 7 of 13, observed frame 19 of 50">
-                    <img src="static/images/CMR/observed/1045169_20209_2_0_CINE_SAX_4D/frame_18/depth_06.png" width="128" height="128" alt="" decoding="async">
+                    <img src="static/images/CMR/observed/ukbb_case_001/frame_18/depth_06.png" width="128" height="128" alt="" decoding="async">
                   </div>
                   <p class="intro-demo-type">Single 3D volume</p>
                   <p class="intro-demo-input-meta"><span>Slice 7 / 13</span><span>Frame 19 / 50</span></p>
@@ -124,7 +124,7 @@
                 <figure class="intro-demo-step intro-demo-keyframes">
                   <figcaption>Synthesized keyframes</figcaption>
                   <div class="intro-demo-media">
-                    <img class="intro-demo-keyframe-image" src="static/images/intro-demo/keyframes/cmr/depth_06/frame_002.png" width="128" height="128" alt="Illustrative CMR keyframe 1 of 10: frame 3 of 50, slice 7 of 13" decoding="async">
+                    <img class="intro-demo-keyframe-image" src="static/images/intro-demo/keyframes/cmr/depth_06/frame_002.png" width="128" height="128" alt="CMR keyframe 1 of 10: frame 3 of 50, slice 7 of 13" decoding="async">
                   </div>
                   <output class="intro-demo-keyframe-readout" id="intro-cmr-keyframe-readout" for="intro-cmr-keyframe">Keyframe 1 / 10 · Frame 3 / 50</output>
                   <input class="cmr-time-slider intro-demo-keyframe-slider" id="intro-cmr-keyframe" type="range" min="0" max="9" step="1" value="0" aria-label="CMR demo: keyframe selection">
@@ -134,13 +134,13 @@
                   <figure class="intro-demo-step intro-demo-generated">
                     <figcaption>Generated sequence</figcaption>
                     <div class="intro-demo-media">
-                      <video muted playsinline preload="none" poster="static/images/intro-demo/cmr-cardiofad-poster.png" data-side="Synthetic" data-demo-src="static/videos/CMR/slices/UKBB/1045169_20209_2_0_CINE_SAX_4D/depth_06_Synthetic.mp4" aria-label="CMR generated sequence, slice 7 of 13"></video>
+                      <video muted playsinline preload="none" poster="static/images/intro-demo/cmr-cardiofad-poster.png" data-side="Synthetic" data-demo-src="static/videos/CMR/slices/UKBB/ukbb_case_001/depth_06_Synthetic.mp4" aria-label="CMR generated sequence, slice 7 of 13"></video>
                     </div>
                   </figure>
                   <figure class="intro-demo-step intro-demo-reference">
                     <figcaption>Ground truth</figcaption>
                     <div class="intro-demo-media">
-                      <video muted playsinline preload="none" poster="static/images/intro-demo/cmr-gt-poster.png" data-side="GT" data-demo-src="static/videos/CMR/slices/UKBB/1045169_20209_2_0_CINE_SAX_4D/depth_06_GT.mp4" aria-label="CMR ground-truth sequence, slice 7 of 13"></video>
+                      <video muted playsinline preload="none" poster="static/images/intro-demo/cmr-gt-poster.png" data-side="GT" data-demo-src="static/videos/CMR/slices/UKBB/ukbb_case_001/depth_06_GT.mp4" aria-label="CMR ground-truth sequence, slice 7 of 13"></video>
                     </div>
                   </figure>
                   <p class="intro-demo-type intro-demo-output-type">3D+t sequence</p>
@@ -174,7 +174,7 @@
                 <figure class="intro-demo-step intro-demo-keyframes">
                   <figcaption>Synthesized keyframes</figcaption>
                   <div class="intro-demo-media">
-                    <img class="intro-demo-keyframe-image" src="static/images/intro-demo/keyframes/echo/frame_001.png" width="112" height="112" alt="Illustrative ECHO keyframe 1 of 8: frame 2 of 125" decoding="async">
+                    <img class="intro-demo-keyframe-image" src="static/images/intro-demo/keyframes/echo/frame_001.png" width="112" height="112" alt="ECHO keyframe 1 of 8: frame 2 of 125" decoding="async">
                   </div>
                   <output class="intro-demo-keyframe-readout" id="intro-echo-keyframe-readout" for="intro-echo-keyframe">Keyframe 1 / 8 · Frame 2 / 125</output>
                   <input class="cmr-time-slider intro-demo-keyframe-slider" id="intro-echo-keyframe" type="range" min="0" max="7" step="1" value="0" aria-label="ECHO demo: keyframe selection">
@@ -245,7 +245,7 @@
         <h2 class="title is-3 section-title" id="method-title">How CardioFAD works</h2>
         <p class="section-intro">Learn informative anchors. Align temporal cues. Generate cardiac dynamics.</p>
         <div class="method-animation" data-method-animation>
-          <div class="method-chapters" role="group" aria-label="Jump to an animation chapter">
+          <div class="method-chapters" role="group" aria-label="Watch an animation chapter">
             <button class="method-chapter method-chapter-focus" type="button" data-method-seek="4" data-method-chapter="focus" aria-controls="method-video" aria-pressed="false" disabled>
               <span class="method-chapter-heading"><span>Focus</span></span>
               <span class="method-chapter-copy">Learn informative anchors</span>
@@ -261,8 +261,8 @@
           </div>
           <figure class="method-player" aria-labelledby="method-video-caption">
             <video id="method-video" class="method-video" width="1920" height="1080" controls playsinline preload="none" poster="static/images/method/how-it-works-poster.jpg" data-independent-playback aria-label="How CardioFAD works: a 38-second method animation" aria-describedby="method-video-caption">
-              <source src="static/videos/method/cardiofad-how-it-works.mp4?v=20261012-compact-layout" type="video/mp4">
-              Your browser does not support embedded video. <a href="static/videos/method/cardiofad-how-it-works.mp4?v=20261012-compact-layout">Download the method animation</a> or read the method details below.
+              <source src="static/videos/method/cardiofad-how-it-works.mp4?v=20261013-keyframe-labels" type="video/mp4">
+              Your browser does not support embedded video. <a href="static/videos/method/cardiofad-how-it-works.mp4?v=20261013-keyframe-labels">Download the method animation</a> or read the method details below.
             </video>
             <figcaption class="method-current-scene" id="method-video-caption" aria-live="polite" aria-atomic="true">
               <span class="method-scene-label" data-method-scene>Challenge</span>
@@ -288,7 +288,7 @@
             </figure>
             <article class="method-detail" id="method-focus" aria-labelledby="focus-title">
               <h3 id="focus-title">Focus: learn motion-salient anchors</h3>
-              <p>Focus learns motion-salient keyframes from the time-series signal. Reconstructing the full trajectory from these anchors encourages them to retain essential cardiac dynamics.</p>
+              <p>Focus learns motion-salient keyframes from the time-series signal. Non-keyframe latents are masked, and a 3D UNet reconstructs the trajectory from the retained anchors. Reconstruction loss on the non-keyframe positions encourages the anchors to preserve essential cardiac dynamics.</p>
             </article>
             <article class="method-detail" id="method-align" aria-labelledby="align-title">
               <h3 id="align-title">Align: connect the modalities</h3>
@@ -296,19 +296,19 @@
             </article>
             <article class="method-detail" id="method-diffuse" aria-labelledby="diffuse-title">
               <h3 id="diffuse-title">Diffuse: complete the dynamics</h3>
-              <p>Diffuse first generates keyframes from the sparse observation and aligned time-series guidance, then fills in the remaining frames. Both stages share one masked video diffusion model.</p>
+              <p>Diffuse first generates keyframes from the sparse observation and aligned time-series guidance. These generated anchor latents then condition the same Video DiT while it fills in the remaining positions; the anchors stay fixed during this second stage.</p>
             </article>
             <div class="method-walkthrough" aria-labelledby="method-walkthrough-title">
               <h3 id="method-walkthrough-title">Animation walkthrough</h3>
               <ol>
                 <li><span>0:00–0:04</span><p><strong>Challenge.</strong> One cardiac observation leaves the motion between frames unknown.</p></li>
-                <li><span>0:04–0:11</span><p><strong>Focus.</strong> Learn motion-salient anchors that retain the information needed to reconstruct the trajectory.</p></li>
-                <li><span>0:11–0:18</span><p><strong>Align.</strong> Use informative anchors to connect visual states and time-series cues across modalities.</p></li>
+                <li><span>0:04–0:11</span><p><strong>Focus.</strong> Retain the anchors, mask the other latents, and reconstruct the trajectory.</p></li>
+                <li><span>0:11–0:18</span><p><strong>Align.</strong> Emphasize an anchor and its nearby ECG phases, then apply the same soft alignment rule across the sequence.</p></li>
                 <li><span>0:18–0:25</span><p><strong>Diffuse · Stage 1.</strong> Generate keyframes from the sparse observation and aligned time-series guidance.</p></li>
-                <li><span>0:25–0:32</span><p><strong>Diffuse · Stage 2.</strong> Condition on the generated anchors to interpolate the remaining frames.</p></li>
+                <li><span>0:25–0:32</span><p><strong>Diffuse · Stage 2.</strong> Feed generated anchors into the same Video DiT as conditions, hold them fixed, and complete the remaining frames.</p></li>
                 <li><span>0:32–0:38</span><p><strong>Output.</strong> Combine the generated keyframes and interpolated frames into a complete cardiac sequence.</p></li>
               </ol>
-              <p class="method-source-note">Anchor thumbnails are extracted from the existing CMR reconstruction footage; they are not recorded intermediate samples from the two generation stages. The animation illustrates the method rather than a recorded inference run.</p>
+              <p class="method-source-note">CMR imagery and anchor thumbnails come from the existing reconstruction footage; they are not recorded intermediate samples from the two generation stages. The keyframe scores come from a saved export of the same case. ECG, alignment weights, and denoising transitions are schematic.</p>
             </div>
           </div>
         </details>

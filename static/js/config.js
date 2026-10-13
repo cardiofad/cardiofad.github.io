@@ -22,44 +22,44 @@ window.CARDIOFAD = {
       // Source frame/depth indices are zero-based. Keep depths 01–11, excluding padded edges.
       // Labels retain the original 13-slice coordinates; observed images are exact decoded GT frames.
       {
-        task: "Volume2Seq", sliceDirectory: "static/videos/CMR/slices/UKBB/1045169_20209_2_0_CINE_SAX_4D",
+        task: "Volume2Seq", sliceDirectory: "static/videos/CMR/slices/UKBB/ukbb_case_001",
         sliceCount: 13, minSlice: 1, maxSlice: 11, defaultSlice: 6,
-        observed: { type: "volume", frame: 18, directory: "static/images/CMR/observed/1045169_20209_2_0_CINE_SAX_4D/frame_18" }
+        observed: { type: "volume", frame: 18, directory: "static/images/CMR/observed/ukbb_case_001/frame_18" }
       },
       {
-        task: "Volume2Seq", sliceDirectory: "static/videos/CMR/slices/UKBB/1023113_20209_2_0_CINE_SAX_4D",
+        task: "Volume2Seq", sliceDirectory: "static/videos/CMR/slices/UKBB/ukbb_case_002",
         sliceCount: 13, minSlice: 1, maxSlice: 11, defaultSlice: 6,
-        observed: { type: "volume", frame: 29, directory: "static/images/CMR/observed/1023113_20209_2_0_CINE_SAX_4D/frame_29" }
+        observed: { type: "volume", frame: 29, directory: "static/images/CMR/observed/ukbb_case_002/frame_29" }
       },
       {
-        task: "Volume2Seq", sliceDirectory: "static/videos/CMR/slices/UKBB/1025994_20209_2_0_CINE_SAX_4D",
+        task: "Volume2Seq", sliceDirectory: "static/videos/CMR/slices/UKBB/ukbb_case_003",
         sliceCount: 13, minSlice: 1, maxSlice: 11, defaultSlice: 6,
-        observed: { type: "volume", frame: 7, directory: "static/images/CMR/observed/1025994_20209_2_0_CINE_SAX_4D/frame_07" }
+        observed: { type: "volume", frame: 7, directory: "static/images/CMR/observed/ukbb_case_003/frame_07" }
       },
       {
-        task: "Volume2Seq", sliceDirectory: "static/videos/CMR/slices/UKBB/1143454_20209_2_0_CINE_SAX_4D",
+        task: "Volume2Seq", sliceDirectory: "static/videos/CMR/slices/UKBB/ukbb_case_004",
         sliceCount: 13, minSlice: 1, maxSlice: 11, defaultSlice: 6,
-        observed: { type: "volume", frame: 44, directory: "static/images/CMR/observed/1143454_20209_2_0_CINE_SAX_4D/frame_44" }
+        observed: { type: "volume", frame: 44, directory: "static/images/CMR/observed/ukbb_case_004/frame_44" }
       },
       {
-        task: "Slice2Seq", sliceDirectory: "static/videos/CMR/slices/UKBB/1173572_20209_3_0_CINE_SAX_4D",
+        task: "Slice2Seq", sliceDirectory: "static/videos/CMR/slices/UKBB/ukbb_case_005",
         sliceCount: 13, minSlice: 1, maxSlice: 11, defaultSlice: 6,
-        observed: { type: "slice", frame: 34, depth: 4, directory: "static/images/CMR/observed/1173572_20209_3_0_CINE_SAX_4D/frame_34" }
+        observed: { type: "slice", frame: 34, depth: 4, directory: "static/images/CMR/observed/ukbb_case_005/frame_34" }
       },
       {
-        task: "Slice2Seq", sliceDirectory: "static/videos/CMR/slices/UKBB/1201944_20209_2_0_CINE_SAX_4D",
+        task: "Slice2Seq", sliceDirectory: "static/videos/CMR/slices/UKBB/ukbb_case_006",
         sliceCount: 13, minSlice: 1, maxSlice: 11, defaultSlice: 6,
-        observed: { type: "slice", frame: 5, depth: 2, directory: "static/images/CMR/observed/1201944_20209_2_0_CINE_SAX_4D/frame_05" }
+        observed: { type: "slice", frame: 5, depth: 2, directory: "static/images/CMR/observed/ukbb_case_006/frame_05" }
       },
       {
-        task: "Slice2Seq", sliceDirectory: "static/videos/CMR/slices/UKBB/1298151_20209_2_0_CINE_SAX_4D",
+        task: "Slice2Seq", sliceDirectory: "static/videos/CMR/slices/UKBB/ukbb_case_007",
         sliceCount: 13, minSlice: 1, maxSlice: 11, defaultSlice: 6,
-        observed: { type: "slice", frame: 41, depth: 7, directory: "static/images/CMR/observed/1298151_20209_2_0_CINE_SAX_4D/frame_41" }
+        observed: { type: "slice", frame: 41, depth: 7, directory: "static/images/CMR/observed/ukbb_case_007/frame_41" }
       },
       {
-        task: "Slice2Seq", sliceDirectory: "static/videos/CMR/slices/UKBB/1347534_20209_2_0_CINE_SAX_4D",
+        task: "Slice2Seq", sliceDirectory: "static/videos/CMR/slices/UKBB/ukbb_case_008",
         sliceCount: 13, minSlice: 1, maxSlice: 11, defaultSlice: 6,
-        observed: { type: "slice", frame: 26, depth: 10, directory: "static/images/CMR/observed/1347534_20209_2_0_CINE_SAX_4D/frame_26" }
+        observed: { type: "slice", frame: 26, depth: 10, directory: "static/images/CMR/observed/ukbb_case_008/frame_26" }
       }
     ],
     echo: [

@@ -85,7 +85,7 @@
       const label = `Keyframe ${keyIndex + 1} / ${keyframes.length} · Frame ${frame + 1} / ${frameCount}`;
       const directory = `static/images/intro-demo/keyframes/${modality}${slice !== null ? `/depth_${String(slice).padStart(2, "0")}` : ""}`;
       setImage(keyImage, `${directory}/frame_${String(frame).padStart(3, "0")}.png`, force);
-      keyImage.alt = `Illustrative ${name} keyframe ${keyIndex + 1} of ${keyframes.length}: frame ${frame + 1} of ${frameCount}${slice !== null ? `, slice ${slice + 1} of 13` : ""}`;
+      keyImage.alt = `${name} keyframe ${keyIndex + 1} of ${keyframes.length}: frame ${frame + 1} of ${frameCount}${slice !== null ? `, slice ${slice + 1} of 13` : ""}`;
       keyReadout.value = label;
       keySlider.setAttribute("aria-valuetext", label);
       keyTrack.style.setProperty("--keyframe-progress", `${frame / (frameCount - 1) * 100}%`);

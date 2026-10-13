@@ -1,7 +1,7 @@
 /* Fixed zero-based keyframe indices and lossless preview sprite paths. */
 window.CARDIOFAD_KEYFRAMES = {
   "cmr": {
-    "1045169_20209_2_0_CINE_SAX_4D": {
+    "ukbb_case_001": {
       "indices": [
         2,
         3,
@@ -16,9 +16,9 @@ window.CARDIOFAD_KEYFRAMES = {
       ],
       "frameCount": 50,
       "fps": 20,
-      "directory": "static/images/video-keyframes/cmr/1045169_20209_2_0_CINE_SAX_4D"
+      "directory": "static/images/video-keyframes/cmr/ukbb_case_001"
     },
-    "1023113_20209_2_0_CINE_SAX_4D": {
+    "ukbb_case_002": {
       "indices": [
         0,
         1,
@@ -33,9 +33,9 @@ window.CARDIOFAD_KEYFRAMES = {
       ],
       "frameCount": 50,
       "fps": 20,
-      "directory": "static/images/video-keyframes/cmr/1023113_20209_2_0_CINE_SAX_4D"
+      "directory": "static/images/video-keyframes/cmr/ukbb_case_002"
     },
-    "1025994_20209_2_0_CINE_SAX_4D": {
+    "ukbb_case_003": {
       "indices": [
         2,
         8,
@@ -50,9 +50,9 @@ window.CARDIOFAD_KEYFRAMES = {
       ],
       "frameCount": 50,
       "fps": 20,
-      "directory": "static/images/video-keyframes/cmr/1025994_20209_2_0_CINE_SAX_4D"
+      "directory": "static/images/video-keyframes/cmr/ukbb_case_003"
     },
-    "1143454_20209_2_0_CINE_SAX_4D": {
+    "ukbb_case_004": {
       "indices": [
         5,
         6,
@@ -67,9 +67,9 @@ window.CARDIOFAD_KEYFRAMES = {
       ],
       "frameCount": 50,
       "fps": 20,
-      "directory": "static/images/video-keyframes/cmr/1143454_20209_2_0_CINE_SAX_4D"
+      "directory": "static/images/video-keyframes/cmr/ukbb_case_004"
     },
-    "1173572_20209_3_0_CINE_SAX_4D": {
+    "ukbb_case_005": {
       "indices": [
         3,
         14,
@@ -84,9 +84,9 @@ window.CARDIOFAD_KEYFRAMES = {
       ],
       "frameCount": 50,
       "fps": 20,
-      "directory": "static/images/video-keyframes/cmr/1173572_20209_3_0_CINE_SAX_4D"
+      "directory": "static/images/video-keyframes/cmr/ukbb_case_005"
     },
-    "1201944_20209_2_0_CINE_SAX_4D": {
+    "ukbb_case_006": {
       "indices": [
         4,
         8,
@@ -101,9 +101,9 @@ window.CARDIOFAD_KEYFRAMES = {
       ],
       "frameCount": 50,
       "fps": 20,
-      "directory": "static/images/video-keyframes/cmr/1201944_20209_2_0_CINE_SAX_4D"
+      "directory": "static/images/video-keyframes/cmr/ukbb_case_006"
     },
-    "1298151_20209_2_0_CINE_SAX_4D": {
+    "ukbb_case_007": {
       "indices": [
         0,
         2,
@@ -118,9 +118,9 @@ window.CARDIOFAD_KEYFRAMES = {
       ],
       "frameCount": 50,
       "fps": 20,
-      "directory": "static/images/video-keyframes/cmr/1298151_20209_2_0_CINE_SAX_4D"
+      "directory": "static/images/video-keyframes/cmr/ukbb_case_007"
     },
-    "1347534_20209_2_0_CINE_SAX_4D": {
+    "ukbb_case_008": {
       "indices": [
         4,
         8,
@@ -135,7 +135,7 @@ window.CARDIOFAD_KEYFRAMES = {
       ],
       "frameCount": 50,
       "fps": 20,
-      "directory": "static/images/video-keyframes/cmr/1347534_20209_2_0_CINE_SAX_4D"
+      "directory": "static/images/video-keyframes/cmr/ukbb_case_008"
     }
   },
   "echo": {

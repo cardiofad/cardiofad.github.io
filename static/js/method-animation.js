@@ -13,10 +13,10 @@
   const player = root.querySelector(".method-player");
   const scenes = [
     { start: 0, chapter: "overview", label: "Challenge", text: "One cardiac observation leaves the motion between frames unknown." },
-    { start: 4, chapter: "focus", label: "Focus", text: "Learn motion-salient anchors that retain the information needed to reconstruct the trajectory." },
-    { start: 11, chapter: "align", label: "Align", text: "Use informative anchors to connect visual states and time-series cues across modalities." },
+    { start: 4, chapter: "focus", label: "Focus", text: "Retain the anchors, mask the other latents, and learn which moments preserve enough information to reconstruct the trajectory." },
+    { start: 11, chapter: "align", label: "Align", text: "Give informative anchors stronger soft alignment to nearby ECG phases, then apply the same rule across the sequence." },
     { start: 18, chapter: "diffuse", label: "Diffuse · Stage 1", text: "Generate keyframes from the sparse observation and aligned time-series guidance." },
-    { start: 25, chapter: "diffuse", label: "Diffuse · Stage 2", text: "Condition on the generated anchors to interpolate the remaining frames." },
+    { start: 25, chapter: "diffuse", label: "Diffuse · Stage 2", text: "Feed the generated anchors into the same Video DiT as conditions; keep them fixed while completing the remaining frames." },
     { start: 32, chapter: "diffuse", label: "Output", text: "Combine the generated keyframes and interpolated frames into a complete cardiac sequence." }
   ];
   let activeScene = -1;
@@ -70,8 +70,8 @@
 
   chapters.forEach(button => {
     button.disabled = false;
-    // Seeking preserves the viewer's choice to play or remain paused.
-    button.addEventListener("click", () => seek(Number(button.dataset.methodSeek)));
+    // Chapter cards explicitly start watching; Overview only changes position.
+    button.addEventListener("click", () => seek(Number(button.dataset.methodSeek), button.classList.contains("method-chapter")));
   });
   playButton.addEventListener("click", () => {
     if (!video.paused) {
