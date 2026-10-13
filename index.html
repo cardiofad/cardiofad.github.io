@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="static/css/cmr-viewer.css?v=20261012-keyframe-link">
   <link rel="stylesheet" href="static/css/keyframe-timeline.css?v=20261011-slider-spacing">
   <link rel="stylesheet" href="static/css/intro-demo.css?v=20261012-keyframe-link">
-  <link rel="stylesheet" href="static/css/method-animation.css?v=20261012-no-chapter-times">
+  <link rel="stylesheet" href="static/css/method-animation.css?v=20261013-remove-walkthrough">
   <link rel="stylesheet" href="static/css/quantitative-results.css?v=20261009-matched-controls">
   <script src="static/js/fontawesome.all.min.js" defer></script>
   <script src="static/js/config.js?v=20261013-neutral-case-names" defer></script>
@@ -277,7 +277,7 @@
             </div>
           </div>
           <p class="method-playback-status" data-method-status role="status" hidden></p>
-          <p class="method-motion-note">Reduced motion is enabled. The animation stays paused until you choose to play; a text walkthrough is available below.</p>
+          <p class="method-motion-note">Reduced motion is enabled. The animation stays paused until you choose to play; method details are available below.</p>
         </div>
         <details class="method-details" id="method-details">
           <summary>Full framework &amp; method details</summary>
@@ -298,18 +298,6 @@
               <h3 id="diffuse-title">Diffuse: complete the dynamics</h3>
               <p>Diffuse first generates keyframes from the sparse observation and aligned time-series guidance. These generated anchor latents then condition the same Video DiT while it fills in the remaining positions; the anchors stay fixed during this second stage.</p>
             </article>
-            <div class="method-walkthrough" aria-labelledby="method-walkthrough-title">
-              <h3 id="method-walkthrough-title">Animation walkthrough</h3>
-              <ol>
-                <li><span>0:00–0:04</span><p><strong>Challenge.</strong> One cardiac observation leaves the motion between frames unknown.</p></li>
-                <li><span>0:04–0:11</span><p><strong>Focus.</strong> Retain the anchors, mask the other latents, and reconstruct the trajectory.</p></li>
-                <li><span>0:11–0:18</span><p><strong>Align.</strong> Emphasize an anchor and its nearby ECG phases, then apply the same soft alignment rule across the sequence.</p></li>
-                <li><span>0:18–0:25</span><p><strong>Diffuse · Stage 1.</strong> Generate keyframes from the sparse observation and aligned time-series guidance.</p></li>
-                <li><span>0:25–0:32</span><p><strong>Diffuse · Stage 2.</strong> Feed generated anchors into the same Video DiT as conditions, hold them fixed, and complete the remaining frames.</p></li>
-                <li><span>0:32–0:38</span><p><strong>Output.</strong> Combine the generated keyframes and interpolated frames into a complete cardiac sequence.</p></li>
-              </ol>
-              <p class="method-source-note">CMR imagery and anchor thumbnails come from the existing reconstruction footage; they are not recorded intermediate samples from the two generation stages. The keyframe scores come from a saved export of the same case. ECG, alignment weights, and denoising transitions are schematic.</p>
-            </div>
           </div>
         </details>
       </div>
