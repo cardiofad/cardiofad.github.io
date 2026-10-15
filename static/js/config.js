@@ -1,8 +1,8 @@
 /* Fill in these values when the final assets/URLs are ready. Paths are relative to index.html.
    Empty values intentionally render placeholders and make no media requests. */
 window.CARDIOFAD = {
-  paperUrl: "",
-  arxivUrl: "",
+  paperUrl: "https://arxiv.org/pdf/2610.19050",
+  arxivUrl: "https://arxiv.org/abs/2610.19050",
   bibtex: "",
   // Optional: replace the explicitly labeled Scholar search with a verified personal profile.
   limaScholarUrl: "",
