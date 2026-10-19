@@ -3,7 +3,12 @@
 window.CARDIOFAD = {
   paperUrl: "https://arxiv.org/pdf/2610.19050",
   arxivUrl: "https://arxiv.org/abs/2610.19050",
-  bibtex: "",
+  bibtex: `@article{liu2026focus,
+  title={Focus, Align, and Diffuse: Time-Series-Aware Keyframe Diffusion for Cardiac Dynamic Synthesis from Sparse Observations},
+  author={Liu, Junkai and Wu, Haofan and Aung, Nay and Lima, Joao AC and Petersen, Steffen E and Zhang, Le},
+  journal={arXiv preprint arXiv:2610.19050},
+  year={2026}
+}`,
   // Optional: replace the explicitly labeled Scholar search with a verified personal profile.
   limaScholarUrl: "",
   images: {
